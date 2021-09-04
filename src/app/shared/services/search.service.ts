@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchService } from './search-service.interface';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
+import { RepositoryResponse } from '../dtos/repository.response';
 
 const REPOSITORIES_SEARCH_URL = 'search/repositories';
 
@@ -13,11 +14,11 @@ export class GitHubSearchService implements SearchService {
     @Inject(API_BASE_URL) private readonly baseUrl: string
   ) { }
   
-  public searchRepositories(text: string): Observable<any> {
+  public searchRepositories(text: string): Observable<RepositoryResponse> {
     const url = concatUrl(this.baseUrl, REPOSITORIES_SEARCH_URL);
     const params = createQuery(text);
 
-    return this.httpClient.get(url, {params});
+    return this.httpClient.get<RepositoryResponse>(url, {params});
   }
 
   public searchCommits(text: string): Observable<any> {

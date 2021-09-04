@@ -8,17 +8,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
 import { GitHubSearchService } from './services/search.service';
 import { SearchComponent } from './components/search/search.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    SearchComponent
+    SearchComponent,
+    DataTableComponent
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule, MatIconModule
   ],
-  exports: [SearchComponent]
+  exports: [SearchComponent, DataTableComponent]
 })
 export class SharedModule {
   public static forRoot(apiBaseUrl: string): ModuleWithProviders<SharedModule> {

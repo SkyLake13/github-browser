@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RepositoryResponse } from 'src/app/shared/dtos/repository.response';
 
 import { SearchService, SEARCH_SERVICE } from '../../shared';
 
@@ -10,17 +10,29 @@ import { SearchService, SEARCH_SERVICE } from '../../shared';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit { 
-  public rows?: Observable<any>;
+  public columns = [
+    { propertyName: 'name', columnName: 'Repo name' },
+    { propertyName: 'avatar_url', columnName: 'Avatar' },
+    { propertyName: 'created_at', columnName: 'Created at' }
+  ];
+
+  public rows: any = [];
 
   constructor(
-    @Inject(SEARCH_SERVICE) private readonly searchService: SearchService
+    @Inject(SEARCH_SERVICE) private readonly searchService: SearchService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
     
   }
 
-  public search(text: string) {
-    this.rows = this.searchService.searchRepositories(text);
+  public async search(text: string) {
+    const res = await this.searchService.searchRepositories(text).toPromise();
+    this.rows = res.items;
+  }
+
+  public rowClick(row: any) {
+      this.router.navigate(['commits', row.full_name])
   }
 }

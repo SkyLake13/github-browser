@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, pathMatch: 'full' }
+  { path: '', component: MainComponent, pathMatch: 'full' },
+  { path: ':repoName', component: MainComponent }
 ];
 
 @NgModule({

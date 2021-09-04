@@ -3,6 +3,6 @@
         <app-search (search)="search($event)"></app-search>
     </div>
     <div>
-        {{ rows | async | json }}
+        <app-data-table [columns]="columns" [data]="rows" (rowClick)="rowClick($event)"></app-data-table>
     </div>
 </div>

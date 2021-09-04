@@ -1,0 +1,10 @@
+<table>
+    <thead>
+        <th *ngFor="let header of columns">{{ header.columnName}}</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data" (click)="rowClicked(row)">
+            <td *ngFor="let header of columns">{{ getData(row, header) }}</td>
+        </tr>
+    </tbody>
+</table>
