@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SearchService } from './github-service.interface';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
 import { RepositoryResponse } from '../dtos/repository.response';
 import { CommitResponse } from '../dtos/commit.response';
+import { CommitSearchResponse } from '../dtos/commit-search.response';
 
 const REPOSITORIES_SEARCH_URL = 'search/repositories';
+const COMMITS_SEARCH_URL = 'search/commits';
 
 @Injectable()
 export class GitHubService implements SearchService {
@@ -15,9 +17,9 @@ export class GitHubService implements SearchService {
     @Inject(API_BASE_URL) private readonly baseUrl: string
   ) { }
   
-  public searchRepositories(text: string): Observable<RepositoryResponse> {
+  public searchRepositories(query: string): Observable<RepositoryResponse> {
     const url = concatUrl(this.baseUrl, REPOSITORIES_SEARCH_URL);
-    const params = createSearchRepositoriesQuery(new HttpParams(), text);
+    const params = createSearchRepositoriesQuery(new HttpParams(), query);
 
     return this.httpClient.get<RepositoryResponse>(url, {params});
   }
@@ -29,6 +31,15 @@ export class GitHubService implements SearchService {
     const params = createPageQuery(new HttpParams());
 
     return this.httpClient.get<CommitResponse[]>(url, {params});
+  }
+
+  public searchCommits(query: string) {
+    const url = concatUrl(this.baseUrl, COMMITS_SEARCH_URL);
+    const params = createSearchRepositoriesQuery(new HttpParams(), query);
+
+    const headers = new HttpHeaders().set('accept', 'application/vnd.github.cloak-preview+json');
+
+    return this.httpClient.get<CommitSearchResponse>(url, {params, headers});
   }
 }
 
