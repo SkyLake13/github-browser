@@ -1,1 +1,14 @@
-<p>filter works!</p>
+<mat-form-field appearance="outline">
+  <mat-label>Language</mat-label>
+  <mat-select multiple>
+    <mat-option *ngFor="let language of languages" 
+      [value]="language">{{language}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-slider thumbLabel
+  [displayWith]="formatLabel"
+  [tickInterval]="tickInterval"
+  [step]="steps"
+  [min]="min"
+  [max]="max"
+  aria-label="units"></mat-slider>

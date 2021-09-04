@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
 import { GitHubService } from './services/github.service';
@@ -22,7 +24,9 @@ import { FilterComponent } from './components/filter/filter.component';
     CommonModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatInputModule, MatIconModule
+    MatInputModule, MatIconModule,
+    MatSelectModule,
+    MatSliderModule
   ],
   exports: [SearchComponent, DataTableComponent, FilterComponent]
 })

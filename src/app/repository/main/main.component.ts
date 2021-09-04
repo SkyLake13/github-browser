@@ -18,6 +18,15 @@ export class MainComponent implements OnInit {
 
   public rows: any = [];
 
+  public get languages() {
+    return this.rows.map((r: any) => r.language);
+  }
+
+  // stargazers_count
+  public get stars() {
+    return this.rows.map((r: any) => r.stargazers_count);
+  }
+
   constructor(
     @Inject(SEARCH_SERVICE) private readonly searchService: SearchService,
     private readonly router: Router
@@ -30,6 +39,7 @@ export class MainComponent implements OnInit {
   public async search(text: string) {
     const res = await this.searchService.searchRepositories(text).toPromise();
     this.rows = res.items;
+    console.log(this.rows);
   }
 
   public rowClick(row: any) {
