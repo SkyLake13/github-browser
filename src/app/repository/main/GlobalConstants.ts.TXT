@@ -1,0 +1,36 @@
+class GlobalConstants {
+    public _environment?: TestEnvironment = undefined;
+
+    get environment() {
+        if(this.environment == null) {
+            this._environment = getEnvData();
+        }
+
+        return this._environment;
+    }
+
+    public getEnvData(): TestEnvironment {
+        File file = new File();
+        const content = file.read();
+
+        const xyz = this.deserialize(content);
+
+        return xyz;
+    }
+
+    public deserialize(content: string): TestEnvironment {
+        const env = new TestEnvironment();
+        env.Client_Id = content.Client_Id;
+        env.EnvironmentName = content.abc;
+
+        return env;
+    }
+}
+
+
+class TestEnvironment {
+    public EnvironmentName?: string;
+    public Client_Id?: string;
+    public Client_Secret?: string;
+}
+
