@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
-import { GitHubSearchService } from './services/search.service';
+import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,7 @@ export class SharedModule {
       providers: [
         { 
           provide: SEARCH_SERVICE,
-          useClass: GitHubSearchService
+          useClass: GitHubService
         },
         { 
           provide: API_BASE_URL,

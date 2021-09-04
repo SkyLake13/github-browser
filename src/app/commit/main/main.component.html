@@ -1,1 +1,8 @@
-<p>main works!</p>
+<div>
+    <div>
+        <app-search (search)="search($event)"></app-search>
+    </div>
+    <div>
+        <app-data-table [columns]="columns" [data]="rows"></app-data-table>
+    </div>
+</div>
