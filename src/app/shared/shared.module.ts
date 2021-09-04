@@ -10,11 +10,13 @@ import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { CommonModule } from '@angular/common';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
     SearchComponent,
-    DataTableComponent
+    DataTableComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule, MatIconModule
   ],
-  exports: [SearchComponent, DataTableComponent]
+  exports: [SearchComponent, DataTableComponent, FilterComponent]
 })
 export class SharedModule {
   public static forRoot(apiBaseUrl: string): ModuleWithProviders<SharedModule> {
