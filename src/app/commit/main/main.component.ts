@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, mergeMap, switchMap, takeWhile, tap } from 'rxjs/operators';
-import { CommitSearchResponse, Item } from 'src/app/shared/dtos/commit-search.response';
-import { CommitResponse } from 'src/app/shared/dtos/commit.response';
+import { of } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { SearchService, SEARCH_SERVICE } from '../../shared';
+import { CommitService } from '../commit.service';
+import { Commit } from '../interfaces';
 
 @Component({
   selector: 'app-repo-main',
@@ -18,29 +18,34 @@ export class MainComponent implements OnInit {
     { propertyName: 'message', columnName: 'Message' }
   ];
 
-  public rows: any = [];
+  public rows: Commit[] = [];
 
   constructor(
-    @Inject(SEARCH_SERVICE) private readonly searchService: SearchService,
+    private readonly searchService: CommitService,
     private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap
+      .pipe(filter((params) => params.has('repoName')))
       .pipe(map((params) => params.get('repoName')))
-      .pipe(filter((repoName) => repoName !== undefined))
-      .pipe(tap((repo) => this.repo = repo))
-      .pipe(switchMap((repo) => this.searchService.getCommits(repo ?? '')))
-      .pipe(map((commits) => commits.map(mapCommitResponse)))
+      .pipe(switchMap((repo) => this.getResults(repo)))
     .subscribe((commits) => this.rows = commits);
   }
 
   public search(text: string) {
     const query = this.createQuery(text);
-    this.searchService.searchCommits(query)
-      .pipe(map((res) => res.items))
-      .pipe(map((items) => items.map(mapCommitSearchResponse)))
+    this.getResults(this.repo, query, 1)
       .subscribe((commits) => this.rows = commits);
+  }
+
+  private getResults(repo: string | null, query = '', page = 1) {
+    if(repo) {
+      this.repo = repo;
+      return this.searchService.search(repo, query, page);
+    }
+
+    return of([]);
   }
 
   private createQuery(text: string) {
@@ -51,21 +56,7 @@ export class MainComponent implements OnInit {
     return text;
   }
 
-  private repo: null | string | undefined;
+  private repo = '';
 }
 
-function mapCommitSearchResponse(c: Item) {
-  return {
-    name: c.commit.author.name,
-    url: c.commit.url,
-    message: c.commit.message
-  }
-}
 
-function mapCommitResponse(c: CommitResponse) {
-  return {
-    name: c.commit.author.name,
-    url: c.commit.url,
-    message: c.commit.message
-  }
-}

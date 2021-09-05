@@ -12,7 +12,7 @@ export class DataTableComponent {
   public columns: any[] = [];
 
   @Input()
-  public data = [];
+  public data: any[] = [];
 
   @Output()
   public rowClick = new EventEmitter<number>();

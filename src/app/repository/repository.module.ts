@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RepositoryRoutingModule } from './repository-routing.module';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from '../shared';
+import { RepositoryService } from './repository.service';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared';
     CommonModule,
     RepositoryRoutingModule,
     SharedModule
-  ]
+  ],
+  providers: [RepositoryService]
 })
 export class RepositoryModule { }

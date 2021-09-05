@@ -1,10 +1,10 @@
 import { Observable } from "rxjs";
 import { CommitSearchResponse } from "../dtos/commit-search.response";
-import { CommitResponse } from "../dtos/commit.response";
-import { RepositoryResponse } from "../dtos/repository.response";
+import { IssuesSearchResponse } from "../dtos/issue-search.response";
+import { RepositoryResponse } from "../dtos/repository-search.response";
 
 export interface SearchService {
-    searchRepositories(text: string): Observable<RepositoryResponse>
-    getCommits(text: string): Observable<CommitResponse[]>
-    searchCommits(query: string): Observable<CommitSearchResponse>
+    searchRepositories(text: string): Observable<RepositoryResponse>;
+    searchCommits(query: string): Observable<CommitSearchResponse>;
+    searchIssues(query: string): Observable<IssuesSearchResponse>;
 }

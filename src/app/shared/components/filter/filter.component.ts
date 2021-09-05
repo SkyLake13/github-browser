@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 })
 export class FilterComponent {
   @Input()
-  public languages = [];
+  public languages: string[] = [];
 
   @Input()
   public stars: number[] = [];

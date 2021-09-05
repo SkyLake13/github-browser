@@ -1,45 +1,41 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
-import { SearchService, SEARCH_SERVICE } from '../../shared';
+import { Repository } from '../interfaces';
+import { RepositoryService } from '../repository.service';
 
 @Component({
   selector: 'app-commit-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit { 
+export class MainComponent { 
   public columns = [
     { propertyName: 'name', columnName: 'Repo name' },
-    { propertyName: 'avatar_url', columnName: 'Avatar' },
-    { propertyName: 'created_at', columnName: 'Created at' }
+    { propertyName: 'avatarUrl', columnName: 'Avatar' },
+    { propertyName: 'createdAt', columnName: 'Created at' }
   ];
 
-  public rows: any = [];
+  public rows: Repository[] = [];
 
   public get languages() {
-    return this.rows.map((r: any) => r.language);
+    return this.rows.map((r) => r.language);
   }
 
   // stargazers_count
   public get stars() {
-    return this.rows.map((r: any) => r.stargazers_count);
+    return this.rows.map((r) => r.stars);
   }
 
   constructor(
-    @Inject(SEARCH_SERVICE) private readonly searchService: SearchService,
+    private readonly repoService: RepositoryService,
     private readonly router: Router
   ) { }
 
-  ngOnInit(): void {
-    
-  }
-
   public async search(text: string) {
-    const res = await this.searchService.searchRepositories(text).toPromise();
-    this.rows = res.items;
-    console.log(this.rows);
+    this.repoService.search(text, 1).subscribe((res) => {
+      this.rows = res;
+    });
   }
 
   public rowClick(row: any) {
