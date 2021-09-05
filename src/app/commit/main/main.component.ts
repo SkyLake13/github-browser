@@ -1,27 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { CommitService } from '../commit.service';
-import { Commit } from '../interfaces';
+import { CommitTableDataSource } from '../data-table/data-source';
 
 @Component({
   selector: 'app-repo-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  providers: [CommitTableDataSource]
 })
 export class MainComponent implements OnInit {
-  public columns = [
-    { propertyName: 'name', columnName: 'Author' },
-    { propertyName: 'url', columnName: 'Url' },
-    { propertyName: 'message', columnName: 'Message' }
-  ];
-
-  public rows: Commit[] = [];
-
   constructor(
-    private readonly searchService: CommitService,
+    public readonly tableDataSource: CommitTableDataSource,
     private readonly route: ActivatedRoute
   ) { }
 
@@ -29,23 +20,14 @@ export class MainComponent implements OnInit {
     this.route.paramMap
       .pipe(filter((params) => params.has('repoName')))
       .pipe(map((params) => params.get('repoName')))
-      .pipe(switchMap((repo) => this.getResults(repo)))
-    .subscribe((commits) => this.rows = commits);
+      .pipe(tap((repo) => this.repo = repo))
+      .pipe(switchMap((repo) => this.tableDataSource.getCommits(repo ?? '')))
+    .subscribe();
   }
 
   public search(text: string) {
     const query = this.createQuery(text);
-    this.getResults(this.repo, query, 1)
-      .subscribe((commits) => this.rows = commits);
-  }
-
-  private getResults(repo: string | null, query = '', page = 1) {
-    if(repo) {
-      this.repo = repo;
-      return this.searchService.search(repo, query, page);
-    }
-
-    return of([]);
+    this.tableDataSource.searchCommits(this.repo ?? '', query).subscribe();
   }
 
   private createQuery(text: string) {
@@ -56,7 +38,7 @@ export class MainComponent implements OnInit {
     return text;
   }
 
-  private repo = '';
+  private repo: string | null | undefined;
 }
 
 

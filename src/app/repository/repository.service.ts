@@ -9,7 +9,7 @@ import { Repository } from "./interfaces";
 export class RepositoryService {
     constructor(@Inject(SEARCH_SERVICE) private readonly searchService: SearchService) { }
 
-    public search(searchText: string, page: number, perPage: number = 30) {
+    public search(searchText: string, page: number) {
         // call services here
        /*  return this.searchService.searchIssues(searchText)
             .pipe(mergeMap((issues) => {
@@ -21,7 +21,7 @@ export class RepositoryService {
                 console.log(_searchText);
                 
             })); */
-        return this.searchService.searchRepositories(searchText)
+        return this.searchService.searchRepositories(searchText, page)
             .pipe(map((res) => mapRepositoryResponse(res)));
     }
 }

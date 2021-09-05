@@ -1,18 +1,24 @@
 import { Inject, Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { SEARCH_SERVICE, SearchService } from "../shared";
-import { CommitSearchResponse } from "../shared/dtos/commit-search.response";
+import { Item } from "../shared/dtos/commit-search.response";
+import { GetCommitResponse } from "../shared/dtos/get-commit.response";
 import { Commit } from "./interfaces";
 
 @Injectable()
 export class CommitService {
     constructor(@Inject(SEARCH_SERVICE) private readonly searchService: SearchService) { }
 
-    public search(repoFullName: string, searchText: string, page: number, perPage: number = 30) {
+    public getCommits(repoFullName: string, page: number) {
+        return this.searchService.getCommits(repoFullName, page)
+            .pipe(map((res) => res.map(mapGetCommitResponse)));
+    }
+
+    public search(repoFullName: string, searchText: string, page: number) {
         const searchString = buildSearchString(repoFullName, searchText);
 
-        return this.searchService.searchCommits(searchString)
-                .pipe(map((res) => mapCommitSearchResponse(res)));
+        return this.searchService.searchCommits(searchString, page)
+                .pipe(map((res) => res.items.map(mapCommitSearchResponse)));
     }
 }
 
@@ -24,13 +30,19 @@ function buildSearchString(repoFullName: string, searchText: string) {
     return searchText;
 }
 
-function mapCommitSearchResponse(response: CommitSearchResponse) {
-    return response.items.map((c) => (
-        {
-            name: c.commit.author.name,
-            url: c.commit.url,
-            message: c.commit.message
-        } as Commit
-    ));
+function mapCommitSearchResponse(item: Item) {
+    return {
+            name: item.commit.author.name,
+            url: item.html_url,
+            message: item.commit.message
+    } as Commit;
+}
+
+function mapGetCommitResponse(response: GetCommitResponse) {
+    return { 
+        name: response.commit.author.name,
+        url: response.html_url,
+        message: response.commit.message
+    } as Commit;
 }
 

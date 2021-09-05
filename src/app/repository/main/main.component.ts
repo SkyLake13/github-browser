@@ -10,22 +10,12 @@ import { Repository } from '../interfaces';
   providers: [RepositoryTableDataSource]
 })
 export class MainComponent {
-  /* public get languages() {
-    return this.repos.map((r) => r.language);
-  }
-
-  // stargazers_count
-  public get stars() {
-    return this.repos.map((r) => r.stars);
-  } */
-
   constructor(
     public readonly dataSource: RepositoryTableDataSource,
     private readonly router: Router
   ) { }
 
   public async search(text: string) {
-    console.log(text);
     this.dataSource.search(text).subscribe()
   }
 

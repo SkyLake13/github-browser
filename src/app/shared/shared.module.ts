@@ -10,14 +10,12 @@ import {MatSliderModule} from '@angular/material/slider';
 import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
 import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
-import { DataTableComponent } from './components/data-table/data-table.component';
 import { CommonModule } from '@angular/common';
 import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
     SearchComponent,
-    DataTableComponent,
     FilterComponent
   ],
   imports: [
@@ -28,7 +26,7 @@ import { FilterComponent } from './components/filter/filter.component';
     MatSelectModule,
     MatSliderModule
   ],
-  exports: [SearchComponent, DataTableComponent, FilterComponent]
+  exports: [SearchComponent, FilterComponent]
 })
 export class SharedModule {
   public static forRoot(apiBaseUrl: string): ModuleWithProviders<SharedModule> {

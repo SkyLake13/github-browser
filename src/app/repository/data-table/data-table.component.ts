@@ -15,9 +15,9 @@ export class DataTableComponent {
   public dataSource!: RepositoryTableDataSource;
 
   @Output()
-  public click = new EventEmitter<Repository>();
+  public rowClick = new EventEmitter<Repository>();
 
-  public rowClick(row: Repository) {
-    this.click.emit(row);
+  public click(row: Repository) {
+    this.rowClick.emit(row);
   }
 }
