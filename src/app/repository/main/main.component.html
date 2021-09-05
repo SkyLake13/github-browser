@@ -3,7 +3,7 @@
         <app-search (search)="search($event)"></app-search>
     </div>
     <div>
-        <app-filter [languages]="languages" [stars]="stars" ></app-filter>
+        <!-- <app-filter [languages]="languages" [stars]="stars" ></app-filter> -->
     </div>
 </div>
-<app-data-table [columns]="columns" [data]="rows" (rowClick)="rowClick($event)"></app-data-table>
+<app-repo-table [dataSource]="dataSource" (click)="rowClick($event)"></app-repo-table>
