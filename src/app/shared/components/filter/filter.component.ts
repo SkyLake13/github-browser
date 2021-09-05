@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { MatSliderChange } from '@angular/material/slider';
 
 @Component({
   selector: 'app-filter',
@@ -8,13 +10,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 })
 export class FilterComponent {
   @Input()
-  public languages: string[] = [];
+  public languages!: string[] | null;
 
   @Input()
-  public stars: number[] = [];
+  public stars!: number[] | null;
 
   @Output()
-  public change = new EventEmitter<any>();
+  public selectLanguages = new EventEmitter<string[]>();
+
+  @Output()
+  public minStars = new EventEmitter<number | null>();
 
   public formatLabel(value: number) {
     if (this.max >= 5000 && value >= 1000) {
@@ -24,12 +29,20 @@ export class FilterComponent {
     return value;
   }
 
+  public languageSelectionChange(event: MatSelectChange) {
+    this.selectLanguages.emit(event.value);
+  }
+
+  public minStarsValueChange(event: MatSliderChange) {
+    this.minStars.emit(event.value);
+  }
+
   public get min() {
-    return this.stars.length > 1 ? Math.min(...this.stars) : 0;
+    return this.stars && this.stars?.length > 1 ? Math.min(...this.stars) : 0;
   }
 
   public get max() {
-    return this.stars.length > 1 ? Math.max(...this.stars) : 1;
+    return this.stars && this.stars?.length > 1 ? Math.max(...this.stars) : 1;
   }
 
   public get tickInterval() {

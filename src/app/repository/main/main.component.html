@@ -3,7 +3,11 @@
         <app-search (search)="search($event)"></app-search>
     </div>
     <div>
-        <!-- <app-filter [languages]="languages" [stars]="stars" ></app-filter> -->
+        <app-filter 
+            [languages]="(languages$ | async)" 
+            [stars]="(stars$ | async)"
+            (selectLanguages)="onLanguageSelect($event)"
+            (minStars)="onMinStarsChange($event)"></app-filter>
     </div>
 </div>
 <app-repo-table [dataSource]="dataSource" (rowClick)="rowClick($event)"></app-repo-table>

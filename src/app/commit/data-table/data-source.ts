@@ -15,7 +15,7 @@ export class CommitTableDataSource implements DataSource<Commit> {
         return this.data$.asObservable();
     }
 
-    disconnect(collectionViewer: CollectionViewer): void {
+    disconnect(): void {
         this.data$.complete();
     }
 

@@ -1,14 +1,13 @@
 <mat-form-field appearance="outline">
   <mat-label>Language</mat-label>
-  <mat-select multiple>
+  <mat-select multiple (selectionChange)="languageSelectionChange($event)">
     <mat-option *ngFor="let language of languages" 
       [value]="language">{{language}}</mat-option>
   </mat-select>
 </mat-form-field>
-<mat-slider thumbLabel
+<mat-slider thumbLabel (change)="minStarsValueChange($event)"
   [displayWith]="formatLabel"
   [tickInterval]="tickInterval"
   [step]="steps"
   [min]="min"
-  [max]="max"
-  aria-label="units"></mat-slider>
+  [max]="max"></mat-slider>
