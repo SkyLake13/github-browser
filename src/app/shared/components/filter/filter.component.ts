@@ -10,10 +10,10 @@ import { MatSliderChange } from '@angular/material/slider';
 })
 export class FilterComponent {
   @Input()
-  public languages!: string[] | null;
+  public languages!: string[] | undefined;
 
   @Input()
-  public stars!: number[] | null;
+  public stars!: number[] | undefined;
 
   @Output()
   public selectLanguages = new EventEmitter<string[]>();

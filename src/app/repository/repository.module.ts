@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { SharedModule } from '../shared';
 import { RepositoryService } from './repository.service';
 import { DataTableComponent } from './data-table/data-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DataTableComponent } from './data-table/data-table.component';
     CommonModule,
     RepositoryRoutingModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [RepositoryService]
 })

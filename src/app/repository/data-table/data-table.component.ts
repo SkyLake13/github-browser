@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Repository } from '../interfaces';
-import { RepositoryTableDataSource } from './data-source';
 
 @Component({
   selector: 'app-repo-table',
@@ -11,8 +11,12 @@ import { RepositoryTableDataSource } from './data-source';
 export class DataTableComponent {
   public columns = ['avatar', 'name', 'created'];
 
+  public _dataSource = new MatTableDataSource<Repository>();
+
   @Input()
-  public dataSource!: RepositoryTableDataSource;
+  public set dataSource(value: Repository[] | undefined) {
+    this._dataSource = new MatTableDataSource(value)
+  }
 
   @Output()
   public rowClick = new EventEmitter<Repository>();

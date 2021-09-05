@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@angular/core";
 import { map, mergeMap } from "rxjs/operators";
 import { SEARCH_SERVICE, SearchService } from "../shared";
 import { IssuesSearchResponse } from "../shared/dtos/issue-search.response";
-import { RepositoryResponse } from "../shared/dtos/repository-search.response";
+import { Item, RepositoryResponse } from "../shared/dtos/repository-search.response";
 import { Repository } from "./interfaces";
 
 @Injectable()
@@ -22,7 +22,10 @@ export class RepositoryService {
                 
             })); */
         return this.searchService.searchRepositories(searchText, page)
-            .pipe(map((res) => mapRepositoryResponse(res)));
+            .pipe(map((res) => ({
+                count: res.total_count,
+                items: res.items.map(mapRepositoryResponse)
+            })));
     }
 }
 
@@ -40,13 +43,13 @@ function getRepoFullNameFromUrl(repoUrl: string) {
     return `${owner}/${repo}`;
 }
 
-function mapRepositoryResponse(response: RepositoryResponse) {
-    return response.items.map((i) => ({
+function mapRepositoryResponse(i: Item) {
+    return {
         name: i.full_name,
         avatarUrl: i.owner.avatar_url,
         createdAt: i.created_at,
         language: i.language,
         stars: i.stargazers_count
-    } as Repository));
+    } as Repository;
 }
 
