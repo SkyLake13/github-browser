@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-import { FilterComponent } from '../../shared/components/filter/filter.component';
+import { FilterComponent } from '../filter/filter.component';
 import { SearchComponent } from '../../shared/components/search/search.component';
 import { RepositoriesResult, Repository } from '../interfaces';
 import { RepositoryService } from '../repository.service';

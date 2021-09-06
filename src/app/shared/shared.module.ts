@@ -4,31 +4,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import {MatSliderModule} from '@angular/material/slider';
 
 import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
 import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
 import { CommonModule } from '@angular/common';
-import { FilterComponent } from './components/filter/filter.component';
 import { UiContainerComponent } from './components/ui-container/ui-container.component';
 
 @NgModule({
   declarations: [
     SearchComponent,
-    FilterComponent,
     UiContainerComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatInputModule, MatIconModule,
-    MatSelectModule,
-    MatSliderModule
+    MatInputModule,
+    MatIconModule
   ],
-  exports: [SearchComponent, FilterComponent, UiContainerComponent]
+  exports: [SearchComponent, UiContainerComponent]
 })
 export class SharedModule {
   public static forRoot(apiBaseUrl: string): ModuleWithProviders<SharedModule> {
