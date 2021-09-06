@@ -12,14 +12,14 @@
 
 // low res tablets
 @media (min-width: 421px) and (max-width: 768px) {
-    $marginForSmallTablet: 10px 100px;
+    $marginForSmallTablet: 20px 100px;
 
     @include uiContainer($marginForSmallTablet);
 }
 
 // high res tablets & low res laptops
 @media (min-width: 769px) and (max-width: 1366px) {
-    $marginForSmallLaptop: 10px 200px;
+    $marginForSmallLaptop: 20px 200px;
 
     @include uiContainer($marginForSmallLaptop);
 }
