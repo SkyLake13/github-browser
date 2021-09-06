@@ -12,11 +12,13 @@ import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
 import { CommonModule } from '@angular/common';
 import { FilterComponent } from './components/filter/filter.component';
+import { UiContainerComponent } from './components/ui-container/ui-container.component';
 
 @NgModule({
   declarations: [
     SearchComponent,
-    FilterComponent
+    FilterComponent,
+    UiContainerComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,7 @@ import { FilterComponent } from './components/filter/filter.component';
     MatSelectModule,
     MatSliderModule
   ],
-  exports: [SearchComponent, FilterComponent]
+  exports: [SearchComponent, FilterComponent, UiContainerComponent]
 })
 export class SharedModule {
   public static forRoot(apiBaseUrl: string): ModuleWithProviders<SharedModule> {

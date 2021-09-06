@@ -1,0 +1,39 @@
+@mixin uiContainer($margin) {
+    .ui-container {
+        margin: $margin
+    }
+}
+
+@media (min-width: 310px) and (max-width: 420px) {
+    $marginForSmallDevice: 10px 10px;
+
+    @include uiContainer($marginForSmallDevice);
+}
+
+// low res tablets
+@media (min-width: 421px) and (max-width: 768px) {
+    $marginForSmallTablet: 10px 100px;
+
+    @include uiContainer($marginForSmallTablet);
+}
+
+// high res tablets & low res laptops
+@media (min-width: 769px) and (max-width: 1366px) {
+    $marginForSmallLaptop: 10px 200px;
+
+    @include uiContainer($marginForSmallLaptop);
+}
+
+// high res tablets & high res laptops
+@media (min-width: 1367px) and (max-width: 1666px) {
+    $marginForLargeLaptop: 20px 300px;
+
+    @include uiContainer($marginForLargeLaptop);
+}
+
+// high res tablets & high res laptops
+@media (min-width: 1667px) {
+    $marginForLargeLaptop: 20px 500px;
+
+    @include uiContainer($marginForLargeLaptop);
+}

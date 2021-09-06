@@ -1,9 +1,11 @@
 .main-component-container {
     margin-left: 200px;
+    margin-right: 200px;
 }
 
 .search-filter-container {
     display: flex;
+    justify-content: space-between;
 
     div {
         margin: 10px

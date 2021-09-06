@@ -1,2 +1,9 @@
-<app-search (search)="search($event)"></app-search>
-<app-commit-table [dataSource]="tableDataSource"></app-commit-table>
+<app-ui-container>
+    <div>
+        <app-search (search)="search($event)"></app-search>
+    </div>
+    <div>
+        <app-commit-table [dataSource]="tableDataSource"></app-commit-table>
+    </div>
+</app-ui-container>
+
