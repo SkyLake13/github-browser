@@ -54,7 +54,7 @@ export class GitHubService implements SearchService {
 
 function createSearchRepositoriesQuery(query: string, page: number) {
   return new HttpParams()
-              .set('per_page', 30)
+              .set('per_page', 10)
               .set('page', page)
               .set('order', 'desc')
               .set('q', query)
@@ -62,7 +62,7 @@ function createSearchRepositoriesQuery(query: string, page: number) {
 
 function createPageQuery(page: number) {
   return new HttpParams()
-              .set('per_page', 30)
+              .set('per_page', 10)
               .set('page', page)
 }
 

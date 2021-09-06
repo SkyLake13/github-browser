@@ -1,10 +1,16 @@
-<div class="search-filter-container">
-    <div>
-        <app-search></app-search>
+<div class="main-component-container">
+    <div class="search-filter-container">
+        <div>
+            <app-search></app-search>
+        </div>
+        <div>
+            <app-filter [languages]="languages" [stars]="stars"></app-filter>
+        </div>
     </div>
     <div>
-        <app-filter [languages]="languages" [stars]="stars"></app-filter>
+        <app-repo-table [dataSource]="dataSource" (rowClick)="rowClick($event)"></app-repo-table>
+    </div>
+    <div class="main-component-paginator">
+        <mat-paginator [length]="repos.count" [pageSize]="30"></mat-paginator>
     </div>
 </div>
-<app-repo-table [dataSource]="dataSource" (rowClick)="rowClick($event)"></app-repo-table>
-<mat-paginator [length]="repos.count" [pageSize]="30"></mat-paginator>

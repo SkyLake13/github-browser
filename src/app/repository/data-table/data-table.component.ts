@@ -9,7 +9,7 @@ import { Repository } from '../interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataTableComponent {
-  public columns = ['avatar', 'name', 'created'];
+  public columns = ['avatar', 'name', 'language', 'stars', 'created'];
 
   public _dataSource = new MatTableDataSource<Repository>();
 

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, 
+  EventEmitter, Input, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSliderChange } from '@angular/material/slider';
 
