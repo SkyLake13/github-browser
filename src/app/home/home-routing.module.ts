@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavigatorComponent } from './home.component';
+import { HomeComponent } from './home.component';
 
 const routes: Routes = [
-  { path: '', component: NavigatorComponent, pathMatch: 'full' }
+  { path: '', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

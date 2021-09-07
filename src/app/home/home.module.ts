@@ -5,10 +5,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { NavigatorRoutingModule } from "./home-routing.module";
-import { NavigatorComponent } from "./home.component";
+import { HomeComponent } from "./home.component";
 
 @NgModule({
-    declarations: [NavigatorComponent],
+    declarations: [HomeComponent],
     imports: [
         CommonModule,
         NavigatorRoutingModule,
