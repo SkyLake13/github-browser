@@ -1,13 +1,12 @@
 import { Inject, Injectable } from "@angular/core";
-import { map, mergeMap } from "rxjs/operators";
-import { API_SERVICE, ApiService } from "../../shared";
-import { IssuesSearchResponse } from "../../shared/api-response-objects/issue-search.response";
-import { Item, RepositoryResponse } from "../../shared/api-response-objects/repository-search.response";
+import { map } from "rxjs/operators";
+import { API_SERVICE, RepositoryItem, 
+    IssuesSearchResponse, ApiService } from "../../github-client";
 import { Repository } from "../interfaces";
 
 @Injectable()
 export class RepositoryService {
-    constructor(@Inject(API_SERVICE) private readonly searchService: ApiService) { }
+    constructor(@Inject(API_SERVICE) private readonly apiService: ApiService) { }
 
     public search(searchText: string, page: number) {
         // call services here
@@ -21,7 +20,7 @@ export class RepositoryService {
                 console.log(_searchText);
                 
             })); */
-        return this.searchService.searchRepositories(searchText, page)
+        return this.apiService.searchRepositories(searchText, page)
             .pipe(map((res) => ({
                 count: res.total_count,
                 items: res.items.map(mapRepositoryResponse)
@@ -43,7 +42,7 @@ function getRepoFullNameFromUrl(repoUrl: string) {
     return `${owner}/${repo}`;
 }
 
-function mapRepositoryResponse(i: Item) {
+function mapRepositoryResponse(i: RepositoryItem) {
     return {
         name: i.full_name,
         avatarUrl: i.owner.avatar_url,

@@ -1,16 +1,14 @@
 import { Inject, Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
-import { API_SERVICE, ApiService } from "../../shared";
-import { Item } from "../../shared/api-response-objects/commit-search.response";
-import { GetCommitResponse } from "../../shared/api-response-objects/get-commit.response";
+import { API_SERVICE, CommitItem, GetCommitResponse, ApiService } from "../../github-client";
 import { Commit } from "../interfaces";
 
 @Injectable()
 export class CommitService {
-    constructor(@Inject(API_SERVICE) private readonly searchService: ApiService) { }
+    constructor(@Inject(API_SERVICE) private readonly apiService: ApiService) { }
 
     public getCommits(repoFullName: string, page: number) {
-        return this.searchService.getCommits(repoFullName, page)
+        return this.apiService.getCommits(repoFullName, page)
             .pipe(map((res) => ({
                 count: res.length,
                 items: res.map(mapGetCommitResponse)
@@ -20,7 +18,7 @@ export class CommitService {
     public search(repoFullName: string, searchText: string, page: number) {
         const searchString = buildSearchString(repoFullName, searchText);
 
-        return this.searchService.searchCommits(searchString, page)
+        return this.apiService.searchCommits(searchString, page)
                 .pipe(map((res) => ({
                     count: res.total_count,
                     items: res.items.map(mapCommitSearchResponse)
@@ -36,7 +34,7 @@ function buildSearchString(repoFullName: string, searchText: string) {
     return searchText;
 }
 
-function mapCommitSearchResponse(item: Item) {
+function mapCommitSearchResponse(item: CommitItem) {
     return {
             name: item.commit.author.name,
             url: item.html_url,

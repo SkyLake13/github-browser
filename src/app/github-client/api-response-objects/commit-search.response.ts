@@ -1,7 +1,7 @@
 export interface CommitSearchResponse {
     total_count: number;
     incomplete_results: boolean;
-    items: Item[];
+    items: CommitItem[];
 }
 
 export interface Author {
@@ -148,7 +148,7 @@ export interface Repository {
     deployments_url: string;
 }
 
-export interface Item {
+export interface CommitItem {
     url: string;
     sha: string;
     node_id: string;

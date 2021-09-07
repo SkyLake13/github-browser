@@ -1,7 +1,7 @@
 export interface RepositoryResponse {
     total_count: number;
     incomplete_results: boolean;
-    items: Item[];
+    items: RepositoryItem[];
 }
 
 export interface Owner {
@@ -33,7 +33,7 @@ export interface License {
     node_id: string;
 }
 
-export interface Item {
+export interface RepositoryItem {
     id: number;
     node_id: string;
     name: string;

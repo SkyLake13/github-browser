@@ -4,12 +4,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { SharedModule } from './shared';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GithubClientModule } from './github-client';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule.forRoot(environment.api_base_url),
+    GithubClientModule.forRoot(environment.api_base_url),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ApiService } from './api-service.interface';
+import { ApiService } from '../api-service.interface';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
 import { RepositoryResponse } from '../api-response-objects/repository-search.response';
