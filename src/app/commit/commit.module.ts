@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 
 import { CommitRoutingModule } from './commit-routing.module';
-import { MainComponent } from './main/main.component';
+import { CommitListComponent } from './components/commit-list/commit-list.component';
 import { SharedModule } from '../shared';
-import { DataTableComponent } from './data-table/data-table.component';
-import { CommitService } from './commit.service';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { CommitService } from './services/commit.service';
 
 
 
 @NgModule({
   declarations: [
-    MainComponent,
+    CommitListComponent,
     DataTableComponent
   ],
   imports: [

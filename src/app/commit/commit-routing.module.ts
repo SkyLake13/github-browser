@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
+import { CommitListComponent } from './components/commit-list/commit-list.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, pathMatch: 'full' },
-  { path: ':repoName', component: MainComponent }
+  { path: '', component: CommitListComponent, pathMatch: 'full' },
+  { path: ':repoName', component: CommitListComponent }
 ];
 
 @NgModule({

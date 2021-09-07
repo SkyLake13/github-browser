@@ -1,4 +1,5 @@
 import { InjectionToken } from "@angular/core";
+import { ApiService } from "./services/api-service.interface";
 
-export const SEARCH_SERVICE = new InjectionToken('Github search service');
-export const API_BASE_URL = new InjectionToken('Github api base url');
+export const API_SERVICE = new InjectionToken<ApiService>('Github search service');
+export const API_BASE_URL = new InjectionToken<string>('Github api base url');

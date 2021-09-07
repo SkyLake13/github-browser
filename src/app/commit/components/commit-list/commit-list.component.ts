@@ -6,12 +6,12 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { CommitTableDataSource } from '../data-table/data-source';
 
 @Component({
-  selector: 'app-repo-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'app-commit-list',
+  templateUrl: './commit-list.component.html',
+  styleUrls: ['./commit-list.component.scss'],
   providers: [CommitTableDataSource]
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class CommitListComponent implements OnInit, OnDestroy {
   constructor(
     public readonly tableDataSource: CommitTableDataSource,
     private readonly route: ActivatedRoute

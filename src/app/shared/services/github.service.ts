@@ -1,19 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { SearchService } from './github-service.interface';
+import { ApiService } from './api-service.interface';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
-import { RepositoryResponse } from '../dtos/repository-search.response';
-import { CommitSearchResponse } from '../dtos/commit-search.response';
-import { IssuesSearchResponse } from '../dtos/issue-search.response';
-import { GetCommitResponse } from '../dtos/get-commit.response';
+import { RepositoryResponse } from '../api-response-objects/repository-search.response';
+import { CommitSearchResponse } from '../api-response-objects/commit-search.response';
+import { IssuesSearchResponse } from '../api-response-objects/issue-search.response';
+import { GetCommitResponse } from '../api-response-objects/get-commit.response';
 
 const REPOSITORIES_SEARCH_URL = 'search/repositories';
 const COMMITS_SEARCH_URL = 'search/commits';
 const ISSUE_PR_SEARCH_URL = 'search/issues';
 
 @Injectable()
-export class GitHubService implements SearchService {
+export class GitHubService implements ApiService {
   constructor(
     private readonly httpClient: HttpClient, 
     @Inject(API_BASE_URL) private readonly baseUrl: string

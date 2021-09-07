@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Repository } from '../interfaces';
+import { Repository } from '../../interfaces';
 
 @Component({
   selector: 'app-repo-table',

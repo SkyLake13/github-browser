@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Commit } from '../interfaces';
+import { Commit } from '../../interfaces';
 import { CommitTableDataSource } from './data-source';
 
 @Component({

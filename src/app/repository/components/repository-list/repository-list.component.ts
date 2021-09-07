@@ -5,23 +5,23 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-import { FilterComponent } from '../filter/filter.component';
-import { SearchComponent } from '../../shared/components/search/search.component';
-import { RepositoriesResult, Repository } from '../interfaces';
-import { RepositoryService } from '../repository.service';
+import { RepositoryFilterComponent } from '../filter/filter.component';
+import { SearchComponent } from '../../../shared/components/search/search.component';
+import { RepositoriesResult, Repository } from '../../interfaces';
+import { RepositoryService } from '../../services/repository.service';
 
 @Component({
-  selector: 'app-commit-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'app-repo-list',
+  templateUrl: './repository-list.component.html',
+  styleUrls: ['./repository-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainComponent implements AfterViewInit, OnDestroy {
+export class RepositoryListComponent implements AfterViewInit, OnDestroy {
   @ViewChild(SearchComponent)
   public searchComponent!: SearchComponent;
 
-  @ViewChild(FilterComponent)
-  public filterComponent!: FilterComponent;
+  @ViewChild(RepositoryFilterComponent)
+  public filterComponent!: RepositoryFilterComponent;
 
   @ViewChild(MatPaginator)
   public paginator!: MatPaginator;

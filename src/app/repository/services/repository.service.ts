@@ -1,13 +1,13 @@
 import { Inject, Injectable } from "@angular/core";
 import { map, mergeMap } from "rxjs/operators";
-import { SEARCH_SERVICE, SearchService } from "../shared";
-import { IssuesSearchResponse } from "../shared/dtos/issue-search.response";
-import { Item, RepositoryResponse } from "../shared/dtos/repository-search.response";
-import { Repository } from "./interfaces";
+import { API_SERVICE, ApiService } from "../../shared";
+import { IssuesSearchResponse } from "../../shared/api-response-objects/issue-search.response";
+import { Item, RepositoryResponse } from "../../shared/api-response-objects/repository-search.response";
+import { Repository } from "../interfaces";
 
 @Injectable()
 export class RepositoryService {
-    constructor(@Inject(SEARCH_SERVICE) private readonly searchService: SearchService) { }
+    constructor(@Inject(API_SERVICE) private readonly searchService: ApiService) { }
 
     public search(searchText: string, page: number) {
         // call services here

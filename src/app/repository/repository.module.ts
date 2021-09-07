@@ -6,19 +6,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { RepositoryRoutingModule } from './repository-routing.module';
-import { MainComponent } from './main/main.component';
+import { RepositoryListComponent } from './components/repository-list/repository-list.component';
 import { SharedModule } from '../shared';
-import { RepositoryService } from './repository.service';
-import { DataTableComponent } from './data-table/data-table.component';
+import { RepositoryService } from './services/repository.service';
+import { DataTableComponent } from './components/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { FilterComponent } from './filter/filter.component';
+import { RepositoryFilterComponent } from './components/filter/filter.component';
 
 
 @NgModule({
   declarations: [
-    MainComponent,
+    RepositoryListComponent,
     DataTableComponent,
-    FilterComponent
+    RepositoryFilterComponent
   ],
   imports: [
     CommonModule,

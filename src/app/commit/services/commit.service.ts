@@ -1,13 +1,13 @@
 import { Inject, Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
-import { SEARCH_SERVICE, SearchService } from "../shared";
-import { Item } from "../shared/dtos/commit-search.response";
-import { GetCommitResponse } from "../shared/dtos/get-commit.response";
-import { Commit } from "./interfaces";
+import { API_SERVICE, ApiService } from "../../shared";
+import { Item } from "../../shared/api-response-objects/commit-search.response";
+import { GetCommitResponse } from "../../shared/api-response-objects/get-commit.response";
+import { Commit } from "../interfaces";
 
 @Injectable()
 export class CommitService {
-    constructor(@Inject(SEARCH_SERVICE) private readonly searchService: SearchService) { }
+    constructor(@Inject(API_SERVICE) private readonly searchService: ApiService) { }
 
     public getCommits(repoFullName: string, page: number) {
         return this.searchService.getCommits(repoFullName, page)

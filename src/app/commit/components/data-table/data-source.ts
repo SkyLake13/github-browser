@@ -2,8 +2,8 @@ import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { CommitService } from "../commit.service";
-import { Commit } from "../interfaces";
+import { CommitService } from "../../services/commit.service";
+import { Commit } from "../../interfaces";
 
 @Injectable()
 export class CommitTableDataSource implements DataSource<Commit> {

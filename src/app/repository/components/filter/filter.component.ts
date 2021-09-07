@@ -9,7 +9,7 @@ import { MatSliderChange } from '@angular/material/slider';
   styleUrls: ['./filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterComponent {
+export class RepositoryFilterComponent {
   @Input()
   public languages!: string[] | undefined;
 

@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
-import { API_BASE_URL, SEARCH_SERVICE } from './injection-tokens';
+import { API_BASE_URL, API_SERVICE } from './injection-tokens';
 import { GitHubService } from './services/github.service';
 import { SearchComponent } from './components/search/search.component';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         { 
-          provide: SEARCH_SERVICE,
+          provide: API_SERVICE,
           useClass: GitHubService
         },
         { 

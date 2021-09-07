@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
+import { RepositoryListComponent } from './components/repository-list/repository-list.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, pathMatch: 'full' }
+  { path: '', component: RepositoryListComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
