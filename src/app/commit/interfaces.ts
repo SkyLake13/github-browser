@@ -3,3 +3,8 @@ export interface Commit {
     url: string;
     message: string;
 }
+
+
+export class CommitsResult {
+    constructor(public readonly count?: number, public readonly items?: Commit[]) { }
+}

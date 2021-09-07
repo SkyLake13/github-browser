@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Commit } from '../../interfaces';
-import { CommitTableDataSource } from './data-source';
 
 @Component({
   selector: 'app-commit-table',
@@ -11,6 +11,10 @@ import { CommitTableDataSource } from './data-source';
 export class DataTableComponent {
   public columns = ['url', 'name', 'message'];
 
+  public _dataSource = new MatTableDataSource<Commit>();
+
   @Input()
-  public dataSource!: CommitTableDataSource;
+  public set dataSource(value: Commit[] | undefined) {
+    this._dataSource = new MatTableDataSource(value)
+  }
 }

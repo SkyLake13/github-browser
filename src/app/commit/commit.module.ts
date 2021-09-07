@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { CommitRoutingModule } from './commit-routing.module';
 import { CommitListComponent } from './components/commit-list/commit-list.component';
@@ -19,7 +20,8 @@ import { CommitService } from './services/commit.service';
     CommonModule,
     CommitRoutingModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [CommitService]
 })

@@ -11,14 +11,20 @@ export class CommitService {
 
     public getCommits(repoFullName: string, page: number) {
         return this.searchService.getCommits(repoFullName, page)
-            .pipe(map((res) => res.map(mapGetCommitResponse)));
+            .pipe(map((res) => ({
+                count: res.length,
+                items: res.map(mapGetCommitResponse)
+            })));
     }
 
     public search(repoFullName: string, searchText: string, page: number) {
         const searchString = buildSearchString(repoFullName, searchText);
 
         return this.searchService.searchCommits(searchString, page)
-                .pipe(map((res) => res.items.map(mapCommitSearchResponse)));
+                .pipe(map((res) => ({
+                    count: res.total_count,
+                    items: res.items.map(mapCommitSearchResponse)
+                })));
     }
 }
 
