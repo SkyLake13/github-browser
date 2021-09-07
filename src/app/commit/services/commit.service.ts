@@ -15,7 +15,7 @@ export class CommitService {
             })));
     }
 
-    public search(repoFullName: string, searchText: string, page: number) {
+    public searchCommits(repoFullName: string, searchText: string, page: number) {
         const searchString = buildSearchString(repoFullName, searchText);
 
         return this.apiService.searchCommits(searchString, page)

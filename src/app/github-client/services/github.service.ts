@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../api-service.interface';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
@@ -7,6 +7,7 @@ import { RepositoryResponse } from '../api-response-objects/repository-search.re
 import { CommitSearchResponse } from '../api-response-objects/commit-search.response';
 import { IssuesSearchResponse } from '../api-response-objects/issue-search.response';
 import { GetCommitResponse } from '../api-response-objects/get-commit.response';
+import { HttpParamsBuilder } from './http-params.builder';
 
 const REPOSITORIES_SEARCH_URL = 'search/repositories';
 const COMMITS_SEARCH_URL = 'search/commits';
@@ -21,14 +22,14 @@ export class GitHubService implements ApiService {
   
   public searchRepositories(query: string, page: number): Observable<RepositoryResponse> {
     const url = concatUrl(this.baseUrl, REPOSITORIES_SEARCH_URL);
-    const params = createSearchRepositoriesQuery(query, page);
+    const params = createSearchQuery(query, page);
 
     return this.httpClient.get<RepositoryResponse>(url, {params});
   }
 
   public searchCommits(query: string, page: number) {
     const url = concatUrl(this.baseUrl, COMMITS_SEARCH_URL);
-    const params = createSearchRepositoriesQuery(query, page);
+    const params = createSearchQuery(query, page);
 
     const headers = new HttpHeaders().set('accept', 'application/vnd.github.cloak-preview+json');
 
@@ -46,24 +47,27 @@ export class GitHubService implements ApiService {
 
   public searchIssues(query: string, page: number) {
     const url = concatUrl(this.baseUrl, ISSUE_PR_SEARCH_URL);
-    const params = createSearchRepositoriesQuery(query, page);
+    const params = createSearchQuery(query, page);
 
     return this.httpClient.get<IssuesSearchResponse>(url, {params});
   }
 }
 
-function createSearchRepositoriesQuery(query: string, page: number) {
-  return new HttpParams()
-              .set('per_page', 10)
-              .set('page', page)
-              .set('order', 'desc')
-              .set('q', query)
+function createSearchQuery(query: string, page: number) {
+  return new HttpParamsBuilder()
+              .setQuery(query)
+              .setPage(page)
+              .setPerPage(10)
+              .setOrder()
+              .build();
 }
 
 function createPageQuery(page: number) {
-  return new HttpParams()
-              .set('per_page', 10)
-              .set('page', page)
+  return new HttpParamsBuilder()
+              .setPage(page)
+              .setPerPage(10)
+              .setOrder()
+              .build();
 }
 
 function concatUrl(baseUrl: string, path: string) {

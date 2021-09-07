@@ -78,7 +78,7 @@ export class CommitListComponent implements OnInit, OnDestroy {
   }
 
   private searchCommits(repo: string, query: string, page = 1) {
-    return this.commitService.search(repo, query, page)
+    return this.commitService.searchCommits(repo, query, page)
   }
 
   private getCommits(repo: string, page = 1) {

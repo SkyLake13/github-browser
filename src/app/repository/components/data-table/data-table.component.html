@@ -1,25 +1,25 @@
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="avatar">
-    <th mat-header-cell *matHeaderCellDef class="avatar-cell"> Avatar </th>
+    <th mat-header-cell *matHeaderCellDef class="avatar-cell">Avatar</th>
     <td mat-cell *matCellDef="let element" class="avatar-cell">
       <img src="{{element.avatarUrl}}" class="avatar"/>
     </td>
   </ng-container>
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef class="name-cell"> Name </th>
-    <td mat-cell *matCellDef="let element" class="name-cell"> {{element.name}} </td>
+    <th mat-header-cell *matHeaderCellDef class="name-cell">Name</th>
+    <td mat-cell *matCellDef="let element" class="name-cell">{{element.name}}</td>
   </ng-container>
   <ng-container matColumnDef="language">
     <th mat-header-cell *matHeaderCellDef class="language-cell"> Language </th>
-    <td mat-cell *matCellDef="let element" class="language-cell"> {{element.language}} </td>
+    <td mat-cell *matCellDef="let element" class="language-cell">{{element.language}}</td>
   </ng-container>
   <ng-container matColumnDef="stars">
-    <th mat-header-cell *matHeaderCellDef class="stars-cell"> Stars </th>
-    <td mat-cell *matCellDef="let element" class="stars-cell"> {{element.stars}} </td>
+    <th mat-header-cell *matHeaderCellDef class="stars-cell">Stars</th>
+    <td mat-cell *matCellDef="let element" class="stars-cell">{{element.stars}}</td>
   </ng-container>
   <ng-container matColumnDef="created">
-    <th mat-header-cell *matHeaderCellDef class="date-cell"> Created at </th>
-    <td mat-cell *matCellDef="let element" class="date-cell"> {{element.createdAt}} </td>
+    <th mat-header-cell *matHeaderCellDef class="date-cell">Created at</th>
+    <td mat-cell *matCellDef="let element" class="date-cell">{{element.createdAt}}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
