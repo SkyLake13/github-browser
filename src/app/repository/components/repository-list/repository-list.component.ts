@@ -1,12 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, 
-  ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { ChangeDetectionStrategy, 
+  ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
-import { RepositoryFilterComponent } from '../filter/filter.component';
-import { SearchComponent } from '../../../shared/components/search/search.component';
 import { RepositoriesResult, Repository } from '../../interfaces';
 import { RepositoryService } from '../../services/repository.service';
 
@@ -16,16 +14,7 @@ import { RepositoryService } from '../../services/repository.service';
   styleUrls: ['./repository-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RepositoryListComponent implements AfterViewInit, OnDestroy {
-  @ViewChild(SearchComponent)
-  public searchComponent!: SearchComponent;
-
-  @ViewChild(RepositoryFilterComponent)
-  public filterComponent!: RepositoryFilterComponent;
-
-  @ViewChild(MatPaginator)
-  public paginator!: MatPaginator;
-
+export class RepositoryListComponent implements OnDestroy {
   public repos = new RepositoriesResult(0, []);
   public filteredRepos = new RepositoriesResult(0, []);
 
@@ -45,17 +34,38 @@ export class RepositoryListComponent implements AfterViewInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef
   ) { }
 
-  public ngAfterViewInit() {
-    this.bindSearchEvent();
-    this.bindLanguageSelectionEvent();
-    this.bindMinStarsChangeEvent();
+  public pageChange(pageEvent: PageEvent) {
+    this.page = pageEvent.pageIndex + 1;
 
-    this.paginator.page
-      .pipe(tap((page) => this.page = page.pageIndex + 1))
-      .pipe(switchMap(() => this.repositoryService.search(this.searchText, this.page)))
+    this.repositoryService.search(this.searchText, this.page)
       .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
       .pipe(tap(() => this.dataSource = this.repos.items))
-      .subscribe(() => this.cdr.markForCheck());
+    .subscribe(() => this.cdr.markForCheck());    
+  }
+
+  public searchTextChange(searchText: string) {
+    this.searchText = searchText;
+
+    this.repositoryService.search(this.searchText, this.page)
+    .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
+    .pipe(tap(() => this.dataSource = this.repos.items))
+    .subscribe(() => this.cdr.markForCheck());      
+  }
+
+  public languageSelectionChange(languages: string[]) {
+    this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items?.filter((repo) => languages.includes(repo.language)));
+    this.dataSource = this.filteredRepos.items?.length === 0 ? this.repos.items : this.filteredRepos.items;
+    this.cdr.markForCheck();
+  }
+
+  public minimumStarsValueChange(minimumStars: number | null) {
+    if(minimumStars) {
+      this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items?.filter((repo) => repo.stars >= minimumStars))
+    } else {
+      this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items);
+    }
+    this.dataSource = this.filteredRepos.items;
+    this.cdr.markForCheck();
   }
 
   public rowClick(row: Repository) {
@@ -64,32 +74,6 @@ export class RepositoryListComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private bindMinStarsChangeEvent() {
-    this.filterComponent.minStars
-      .pipe(tap((ms) => {
-        ms ? this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items?.filter((repo) => repo.stars >= ms))
-           : this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items)
-      }))
-      .pipe(tap(() => this.dataSource = this.filteredRepos.items))
-      .subscribe(() => this.cdr.markForCheck());
-  }
-
-  private bindLanguageSelectionEvent() {
-    this.filterComponent.selectLanguages
-      .pipe(tap((languages) => this.filteredRepos = new RepositoriesResult(this.repos.count, this.repos.items?.filter((repo) => languages.includes(repo.language)))))
-      .pipe(tap(() => this.dataSource = this.filteredRepos.items?.length === 0 ? this.repos.items : this.filteredRepos.items))
-      .subscribe(() => this.cdr.markForCheck());
-  }
-
-  private bindSearchEvent() {
-    this.searchComponent.search
-      .pipe(tap((text) => this.searchText = text))
-      .pipe(switchMap(() => this.repositoryService.search(this.searchText, this.page)))
-      .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
-      .pipe(tap(() => this.dataSource = this.repos.items))
-      .subscribe(() => this.cdr.markForCheck());
   }
 
   private subscriptions = new Subscription();

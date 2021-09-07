@@ -1,16 +1,19 @@
 <app-ui-container>
     <div class="search-filter-container">
         <div>
-            <app-search></app-search>
+            <app-search (search)="searchTextChange($event)"></app-search>
         </div>
         <div>
-            <app-filter [languages]="languages" [stars]="stars"></app-filter>
+            <app-filter [languages]="languages" [stars]="stars"
+            (selectLanguages)="languageSelectionChange($event)"
+            (minStars)="minimumStarsValueChange($event)"></app-filter>
         </div>
     </div>
     <div>
         <app-repo-table [dataSource]="dataSource" (rowClick)="rowClick($event)"></app-repo-table>
     </div>
     <div>
-        <mat-paginator [length]="repos.count" [pageSize]="30"></mat-paginator>
+        <mat-paginator [length]="repos.count" [pageSize]="30"
+            (page)="pageChange($event)"></mat-paginator>
     </div>
 </app-ui-container>
