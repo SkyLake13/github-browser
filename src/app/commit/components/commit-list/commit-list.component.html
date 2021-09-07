@@ -3,7 +3,7 @@
         <app-search (search)="search($event)"></app-search>
     </div>
     <div>
-        <app-commit-table [dataSource]="dataSource"></app-commit-table>
+        <app-commit-table [dataSource]="commits.items"></app-commit-table>
     </div>
     <div>
         <mat-paginator [length]="commits.count" [pageSize]="10" (page)="pageChange($event)"></mat-paginator>

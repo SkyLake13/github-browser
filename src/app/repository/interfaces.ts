@@ -7,5 +7,5 @@ export interface Repository {
 }
 
 export class RepositoriesResult {
-    constructor(public readonly count?: number, public readonly items?: Repository[]) { }
+    constructor(public readonly count: number, public readonly items: Repository[]) { }
 }

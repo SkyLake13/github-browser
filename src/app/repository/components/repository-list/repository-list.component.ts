@@ -26,10 +26,10 @@ export class RepositoryListComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator)
   public paginator!: MatPaginator;
 
-  public repos = new RepositoriesResult();
-  public filteredRepos = new RepositoriesResult();
+  public repos = new RepositoriesResult(0, []);
+  public filteredRepos = new RepositoriesResult(0, []);
 
-  public dataSource: Repository[] | undefined;
+  public dataSource: Repository[] = [];
 
   public get languages() {
     return [...new Set(this.repos.items?.map((repo) => repo.language))].sort();

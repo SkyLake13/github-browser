@@ -6,5 +6,5 @@ export interface Commit {
 
 
 export class CommitsResult {
-    constructor(public readonly count?: number, public readonly items?: Commit[]) { }
+    constructor(public readonly count: number, public readonly items: Commit[]) { }
 }

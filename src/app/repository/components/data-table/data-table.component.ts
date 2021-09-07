@@ -11,12 +11,8 @@ import { Repository } from '../../interfaces';
 export class DataTableComponent {
   public columns = ['avatar', 'name', 'language', 'stars', 'created'];
 
-  public _dataSource = new MatTableDataSource<Repository>();
-
   @Input()
-  public set dataSource(value: Repository[] | undefined) {
-    this._dataSource = new MatTableDataSource(value)
-  }
+  public dataSource: Repository[] = []
 
   @Output()
   public rowClick = new EventEmitter<Repository>();

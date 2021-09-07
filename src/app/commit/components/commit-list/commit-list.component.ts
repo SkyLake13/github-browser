@@ -13,9 +13,7 @@ import { CommitService } from '../../services/commit.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommitListComponent implements OnInit, OnDestroy {
-  public commits = new CommitsResult();
-
-  public dataSource: Commit[] | undefined
+  public commits = new CommitsResult(0, []);
 
   constructor(
     private readonly commitService: CommitService,
@@ -30,7 +28,6 @@ export class CommitListComponent implements OnInit, OnDestroy {
       .pipe(tap((repo) => this.repo = repo ?? ''))
       .pipe(switchMap(() => this.getCommits(this.repo ?? '')))
       .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-      .pipe(tap(() => this.dataSource = this.commits.items))
       .subscribe(() => this.cdr.markForCheck());
 
     this.subscriptions.add(subscription);
@@ -42,14 +39,12 @@ export class CommitListComponent implements OnInit, OnDestroy {
       const query = this.createQuery(text);
       const subs = this.searchCommits(this.repo ?? '', query)
                         .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-                        .pipe(tap(() => this.dataSource = this.commits.items))
                         .subscribe(() => this.cdr.markForCheck());
                         this.subscriptions.add(subs);
         this.isSearching = true;
     } else {
       const subs = this.getCommits(this.repo ?? '')
                   .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-                  .pipe(tap(() => this.dataSource = this.commits.items))
                   .subscribe(() => this.cdr.markForCheck());
       this.subscriptions.add(subs);
 
@@ -69,12 +64,10 @@ export class CommitListComponent implements OnInit, OnDestroy {
     if(this.isSearching) {
       this.searchCommits(this.repo, this.query, pageEvent.pageIndex + 1)
       .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-      .pipe(tap(() => this.dataSource = this.commits.items))
       .subscribe(() => this.cdr.markForCheck());
     } else {
       this.getCommits(this.repo, pageEvent.pageIndex + 1)
       .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-      .pipe(tap(() => this.dataSource = this.commits.items))
       .subscribe(() => this.cdr.markForCheck());
     }
   }
