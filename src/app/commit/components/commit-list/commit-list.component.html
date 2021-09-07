@@ -6,7 +6,7 @@
         <app-commit-table [dataSource]="dataSource"></app-commit-table>
     </div>
     <div>
-        <mat-paginator [length]="commits.count" [pageSize]="10"></mat-paginator>
+        <mat-paginator [length]="commits.count" [pageSize]="10" (page)="pageChange($event)"></mat-paginator>
     </div>
 </app-ui-container>
 

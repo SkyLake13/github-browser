@@ -10,7 +10,7 @@
     <div>
         <app-repo-table [dataSource]="dataSource" (rowClick)="rowClick($event)"></app-repo-table>
     </div>
-    <div class="main-component-paginator">
+    <div>
         <mat-paginator [length]="repos.count" [pageSize]="30"></mat-paginator>
     </div>
 </app-ui-container>
