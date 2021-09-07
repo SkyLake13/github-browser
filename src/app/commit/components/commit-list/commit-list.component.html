@@ -1,12 +1,16 @@
 <app-ui-container>
     <div>
-        <app-search (search)="search($event)"></app-search>
+        <app-search (search)="searchTextChange($event)"></app-search>
     </div>
     <div>
         <app-commit-table [dataSource]="commits.items"></app-commit-table>
     </div>
     <div>
-        <mat-paginator [length]="commits.count" [pageSize]="10" (page)="pageChange($event)"></mat-paginator>
+        <mat-paginator 
+            [length]="commits.count" 
+            [pageSize]="10" 
+            (page)="pageChange($event)">
+        </mat-paginator>
     </div>
 </app-ui-container>
 

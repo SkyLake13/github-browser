@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { REPO_NAME_PARAM } from '../../constants';
 import { CommitsResult, Commit } from '../../interfaces';
 import { CommitService } from '../../services/commit.service';
 
@@ -21,76 +22,81 @@ export class CommitListComponent implements OnInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    const subscription = this.route.paramMap
-      .pipe(filter((params) => params.has('repoName')))
-      .pipe(map((params) => params.get('repoName')))
-      .pipe(tap((repo) => this.repo = repo ?? ''))
-      .pipe(switchMap(() => this.getCommits(this.repo ?? '')))
-      .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-      .subscribe(() => this.cdr.markForCheck());
-
-    this.subscriptions.add(subscription);
+  public ngOnInit() {
+    this.getCommitsByUrlParam();
   }
 
-  public search(text: string) {
-    this.query = text;
-    if (text) {
-      const query = this.createQuery(text);
-      const subs = this.searchCommits(this.repo ?? '', query)
-                        .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-                        .subscribe(() => this.cdr.markForCheck());
-                        this.subscriptions.add(subs);
-        this.isSearching = true;
-    } else {
-      const subs = this.getCommits(this.repo ?? '')
-                  .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
-                  .subscribe(() => this.cdr.markForCheck());
-      this.subscriptions.add(subs);
-
-      this.isSearching = false;
-    }
-  }
-
-  searchCommits(repo: string, query: string, page = 1) {
-    return this.commitService.search(repo, query, page)
-  }
-
-  getCommits(repo: string, page = 1) {
-    return this.commitService.getCommits(repo, page)
+  public searchTextChange(searchText: string) {
+    this.query = searchText;
+    this.search(this.query);
   }
 
   public pageChange(pageEvent: PageEvent) {
-    if(this.isSearching) {
+    if(this.isSearch) {
       this.searchCommits(this.repo, this.query, pageEvent.pageIndex + 1)
-      .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
+      .pipe(this.bind())
       .subscribe(() => this.cdr.markForCheck());
     } else {
       this.getCommits(this.repo, pageEvent.pageIndex + 1)
-      .pipe(tap((commits) => this.commits = new CommitsResult(commits.count, commits.items)))
+      .pipe(this.bind())
       .subscribe(() => this.cdr.markForCheck());
     }
   }
-
 
   public ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
-  private createQuery(text: string) {
-    if (this.repo) {
-      return `repo:${this.repo}+${text}`;
-    }
+  private getCommitsByUrlParam() {
+    const subscription = this.route.paramMap
+      .pipe(filter((params) => params.has(REPO_NAME_PARAM)))
+      .pipe(map((params) => params.get(REPO_NAME_PARAM)))
+      .pipe(tap((repo) => this.repo = repo ?? ''))
+      .pipe(switchMap(() => this.getCommits(this.repo)))
+      .pipe(this.bind())
+      .subscribe(() => this.cdr.markForCheck());
 
-    return text;
+    this.subscriptions.add(subscription);
+  }
+
+  private search(searchText: string) {
+    if (searchText) {
+      const query = this.createQuery(searchText);
+      const subs = this.searchCommits(this.repo, query)
+        .pipe(this.bind())
+        .subscribe(() => this.cdr.markForCheck());
+      this.subscriptions.add(subs);
+      this.isSearch = true;
+    } else {
+      const subs = this.getCommits(this.repo)
+        .pipe(this.bind())
+        .subscribe(() => this.cdr.markForCheck());
+      this.subscriptions.add(subs);
+
+      this.isSearch = false;
+    }
+  }
+
+  private searchCommits(repo: string, query: string, page = 1) {
+    return this.commitService.search(repo, query, page)
+  }
+
+  private getCommits(repo: string, page = 1) {
+    return this.commitService.getCommits(repo, page)
+  }
+
+  private createQuery(text: string) {
+    return this.repo ? `repo:${this.repo}+${text}` : text;
+  }
+
+  private bind() {
+    return tap((commits: { count: number, items: Commit[] }) => this.commits = new CommitsResult(commits.count, commits.items));
   }
 
   private repo!: string;
   private query!: string;
-
   private subscriptions = new Subscription();
-
-  private isSearching = false;
+  private isSearch = false;
 }
 
 

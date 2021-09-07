@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavigatorComponent } from './navigator.component';
+import { NavigatorComponent } from './home.component';
 
 const routes: Routes = [
   { path: '', component: NavigatorComponent, pathMatch: 'full' }

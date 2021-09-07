@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommitListComponent } from './components/commit-list/commit-list.component';
+import { REPO_NAME_PARAM } from './constants';
 
 const routes: Routes = [
   { path: '', component: CommitListComponent, pathMatch: 'full' },
-  { path: ':repoName', component: CommitListComponent }
+  { path: `:${REPO_NAME_PARAM}`, component: CommitListComponent }
 ];
 
 @NgModule({
