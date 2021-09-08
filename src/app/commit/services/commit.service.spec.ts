@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { ApiService, API_SERVICE } from 'src/app/github-client';
 import { CommitService } from './commit.service';
 
@@ -16,6 +16,7 @@ const fakeApiService = {
 describe('CommitService', () => {
   let service: CommitService;
   let apiService: ApiService;
+  let subscription = new Subscription();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,6 +30,10 @@ describe('CommitService', () => {
     });
     service = TestBed.inject(CommitService);
     apiService = TestBed.inject(API_SERVICE);
+  });
+
+  afterEach(() => {
+    subscription.unsubscribe();
   });
 
   it('should be created', () => {
@@ -58,7 +63,7 @@ describe('CommitService', () => {
     ];
     const spy = spyOn(apiService, 'getCommits').and.returnValue(of(data));
 
-    service.getCommits('', 1).subscribe((res) => {
+    const subs = service.getCommits('', 1).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res.count).toBe(2);
       expect(res.items.length).toBe(2);
@@ -66,6 +71,8 @@ describe('CommitService', () => {
 
       done();
     });
+
+    subscription.add(subs);
   });
 
   it('should search commits', (done: DoneFn) => {
@@ -95,7 +102,7 @@ describe('CommitService', () => {
     }
     const spy = spyOn<any, any>(apiService, 'searchCommits').and.returnValue(of(data));
 
-    service.searchCommits('abhishek/node', 'class', 1).subscribe((res) => {
+    const subs = service.searchCommits('abhishek/node', 'class', 1).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res.count).toBe(1000);
       expect(res.items.length).toBe(2);
@@ -103,5 +110,7 @@ describe('CommitService', () => {
 
       done();
     });
+
+    subscription.add(subs);
   });
 });
