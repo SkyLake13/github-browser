@@ -5,7 +5,7 @@
     <div>
         <app-commit-table [dataSource]="commits.items"></app-commit-table>
     </div>
-    <div>
+    <div *ngIf="commits.count">
         <mat-paginator 
             [length]="commits.count" 
             [pageSize]="perPageRecordsCount" 
