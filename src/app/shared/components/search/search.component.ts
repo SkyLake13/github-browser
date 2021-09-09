@@ -12,12 +12,12 @@ import { debounceTime, map } from 'rxjs/operators';
 })
 export class SearchComponent implements AfterViewInit, OnDestroy {
   @Output()
-  public search = new EventEmitter<string>();
+  public searchTextChange = new EventEmitter<string>();
 
   public ngAfterViewInit() {
     this.subscription = searchEvent(this.searchTextBox?.nativeElement)
     .subscribe((value) => {
-      this.search.emit(value);
+      this.searchTextChange.emit(value);
     });
   }
 

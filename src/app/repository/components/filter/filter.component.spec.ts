@@ -33,7 +33,7 @@ describe('RepositoryFilterComponent', () => {
 
     fixture.detectChanges();
 
-    component.selectLanguages.subscribe((languages) => {
+    component.languageChange.subscribe((languages) => {
       expect(languages).toBeTruthy();
       expect(languages.length).toBe(1);
       expect(languages[0]).toEqual(languages[0]);
@@ -54,7 +54,7 @@ describe('RepositoryFilterComponent', () => {
     component.stars = [10, 20, 30, 40, 50, 60];
     fixture.detectChanges();
 
-    component.minStars.subscribe((stars) => {
+    component.minStarsChange.subscribe((stars) => {
       expect(stars).toBe(60);
       done();
     });

@@ -21,7 +21,7 @@ export class CommitService {
         return this.apiService.searchCommits(searchString, page)
                 .pipe(map((res) => ({
                     count: res.total_count,
-                    items: res.items.map(mapCommitSearchResponse)
+                    items: res.items.map(mapCommitItem)
                 })));
     }
 }
@@ -34,7 +34,7 @@ function buildSearchString(repoFullName: string, searchText: string) {
     return searchText;
 }
 
-function mapCommitSearchResponse(item: CommitItem) {
+function mapCommitItem(item: CommitItem) {
     return {
             name: item.commit.author.name,
             url: item.html_url,

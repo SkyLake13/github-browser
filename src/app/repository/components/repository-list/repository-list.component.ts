@@ -15,6 +15,8 @@ import { RepositoryService } from '../../services/repository.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RepositoryListComponent implements OnDestroy {
+  public perPageRecordsCount = 10;
+
   public repos = new RepositoriesResult(0, []);
   public filteredRepos = new RepositoriesResult(0, []);
 
@@ -47,8 +49,8 @@ export class RepositoryListComponent implements OnDestroy {
     this.searchText = searchText;
 
     this.repositoryService.search(this.searchText, this.page)
-    .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
-    .pipe(tap(() => this.dataSource = this.repos.items))
+      .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
+      .pipe(tap(() => this.dataSource = this.repos.items))
     .subscribe(() => this.cdr.markForCheck());      
   }
 
@@ -68,15 +70,20 @@ export class RepositoryListComponent implements OnDestroy {
     this.cdr.markForCheck();
   }
 
-  public rowClick(row: Repository) {
-    this.router.navigate(['commits', row.name])
+  public tableRowClick(row: Repository) {
+    this.navigateToCommits(row.name);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
+  private navigateToCommits(repoName: string) {
+    this.router.navigate(['commits', repoName]);
+  }
+
   private subscriptions = new Subscription();
   private searchText!: string;
   private page = 1;
+  
 }

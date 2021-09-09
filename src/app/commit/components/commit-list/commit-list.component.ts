@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, 
+  Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+
 import { REPO_NAME_PARAM } from '../../constants';
 import { CommitsResult, Commit } from '../../interfaces';
 import { CommitService } from '../../services/commit.service';
@@ -14,6 +16,8 @@ import { CommitService } from '../../services/commit.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommitListComponent implements OnInit, OnDestroy {
+  public perPageRecordsCount = 10;
+
   public commits = new CommitsResult(0, []);
 
   constructor(
@@ -72,7 +76,6 @@ export class CommitListComponent implements OnInit, OnDestroy {
         .pipe(this.bind())
         .subscribe(() => this.cdr.markForCheck());
       this.subscriptions.add(subs);
-
       this.isSearch = false;
     }
   }
@@ -90,7 +93,7 @@ export class CommitListComponent implements OnInit, OnDestroy {
   }
 
   private bind() {
-    return tap((commits: { count: number, items: Commit[] }) => this.commits = new CommitsResult(commits.count, commits.items));
+    return tap((commits: CommitsResult) => this.commits = new CommitsResult(commits.count, commits.items));
   }
 
   private repo!: string;

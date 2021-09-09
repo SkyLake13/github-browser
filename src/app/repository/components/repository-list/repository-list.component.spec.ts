@@ -109,7 +109,7 @@ describe('RepositoryListComponent', () => {
 
     component.searchTextChange('facebook');
     fixture.detectChanges();
-    component.rowClick(searchReposResponsePage_1.items[0]);
+    component.tableRowClick(searchReposResponsePage_1.items[0]);
     fixture.detectChanges();
 
     expect(routerSpy).toHaveBeenCalledWith(['commits', 'facebook/jest']);

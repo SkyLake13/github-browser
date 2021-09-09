@@ -17,10 +17,10 @@ export class RepositoryFilterComponent {
   public stars!: number[] | undefined;
 
   @Output()
-  public selectLanguages = new EventEmitter<string[]>();
+  public languageChange = new EventEmitter<string[]>();
 
   @Output()
-  public minStars = new EventEmitter<number | null>();
+  public minStarsChange = new EventEmitter<number | null>();
 
   public formatLabel(value: number) {
     if (this.max >= 5000 && value >= 1000) {
@@ -31,11 +31,11 @@ export class RepositoryFilterComponent {
   }
 
   public languageSelectionChange(event: MatSelectChange) {
-    this.selectLanguages.emit(event.value);
+    this.languageChange.emit(event.value);
   }
 
   public minStarsValueChange(event: MatSliderChange) {
-    this.minStars.emit(event.value);
+    this.minStarsChange.emit(event.value);
   }
 
   public get min() {
