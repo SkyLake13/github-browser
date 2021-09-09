@@ -13,8 +13,7 @@
 @mixin message($hide) {
     .message-cell {
         flex: 1;
-        width: 42vw;
-        max-width: 42vw;
+        max-width: 30vw;
         
         div {
             white-space: nowrap;

@@ -3,13 +3,13 @@
 
 @media (max-width: 414px) {
     @include url(100);
-    @include name(120);
+    @include name(150);
     @include message(true);
 }
 
 @media (min-width: 415px) {
-    @include url(70);
-    @include name(120);
+    @include url(100);
+    @include name(150);
     @include message(false);
 }
 
@@ -17,4 +17,8 @@
 
 .mat-row .mat-cell {
     cursor: default;
+}
+
+table {
+    width: 100%;
 }

@@ -61,16 +61,9 @@
     @include uiContainer($margin, $padding);
 }
 
-@media (min-width: 1666px) and (max-width: 1800px) {
+@media (min-width: 1666px) {
     $margin: 10px 250px;
     $padding: 10px 250px;
-
-    @include uiContainer($margin, $padding);
-}
-
-@media (min-width: 1801px) {
-    $margin: 10px 300px;
-    $padding: 10px 300px;
 
     @include uiContainer($margin, $padding);
 }
