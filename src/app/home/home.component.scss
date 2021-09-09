@@ -9,6 +9,6 @@ mat-card {
 }
 
 .source-link {
-    position: relative;
-    left: 40%;
+    display: flex;
+    justify-content: center;
 }
