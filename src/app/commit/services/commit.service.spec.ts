@@ -102,7 +102,7 @@ describe('CommitService', () => {
     }
     const spy = spyOn<any, any>(apiService, 'searchCommits').and.returnValue(of(data));
 
-    const subs = service.searchCommits('abhishek/node', 'class', 1).subscribe((res) => {
+    const subs = service.searchCommits('class', 1).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res.count).toBe(1000);
       expect(res.items.length).toBe(2);

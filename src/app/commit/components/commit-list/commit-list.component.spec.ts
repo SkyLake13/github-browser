@@ -147,6 +147,6 @@ describe('CommitListComponent', () => {
 
     expect(component.commits.items.length).toBe(2);
     expect(component.commits.count).toBe(2);
-    expect(serviceSpy).toHaveBeenCalledWith('facebook/jest', 'google', 2);
+    expect(serviceSpy).toHaveBeenCalledWith('google', 2);
   });
 });

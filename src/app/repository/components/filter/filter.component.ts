@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, 
-  EventEmitter, Input, Output } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
-import { MatSliderChange } from '@angular/material/slider';
+  EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { MatSlider, MatSliderChange } from '@angular/material/slider';
 
 @Component({
   selector: 'app-filter',
@@ -22,6 +22,12 @@ export class RepositoryFilterComponent {
   @Output()
   public minStarsChange = new EventEmitter<number | null>();
 
+  @ViewChild(MatSelect)
+  public languageSelector!: MatSelect;
+
+  @ViewChild(MatSlider)
+  public starSlider!: MatSlider;
+
   public formatLabel(value: number) {
     if (this.max >= 5000 && value >= 1000) {
       return Math.round(value / 1000) + 'k';
@@ -32,10 +38,12 @@ export class RepositoryFilterComponent {
 
   public languageSelectionChange(event: MatSelectChange) {
     this.languageChange.emit(event.value);
+    this.clearStarsSelection();
   }
 
   public minStarsValueChange(event: MatSliderChange) {
     this.minStarsChange.emit(event.value);
+    this.clearLanguageSelection();
   }
 
   public get min() {
@@ -52,5 +60,18 @@ export class RepositoryFilterComponent {
 
   public get steps() {
     return this.tickInterval;
+  }
+
+  public clearFilters() {
+    this.clearLanguageSelection();
+    this.clearStarsSelection();
+  }
+
+  private clearLanguageSelection() {
+    this.languageSelector.options.forEach((opt) => opt.deselect());
+  }
+
+  private clearStarsSelection() {
+    this.starSlider.value = 0;
   }
 }

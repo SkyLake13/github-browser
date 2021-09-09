@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, 
-  ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+  ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 
 import { RepositoriesResult, Repository } from '../../interfaces';
 import { RepositoryService } from '../../services/repository.service';
+import { RepositoryFilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-repo-list',
@@ -30,6 +31,9 @@ export class RepositoryListComponent implements OnDestroy {
     return this.repos.items?.map((repo) => repo.stars);
   }
 
+  @ViewChild(RepositoryFilterComponent)
+  public filter!: RepositoryFilterComponent;
+
   constructor(
     private readonly repositoryService: RepositoryService,
     private readonly router: Router,
@@ -42,7 +46,10 @@ export class RepositoryListComponent implements OnDestroy {
     this.repositoryService.search(this.searchText, this.page)
       .pipe(tap((repos) => this.repos = new RepositoriesResult(repos.count, repos.items)))
       .pipe(tap(() => this.dataSource = this.repos.items))
-    .subscribe(() => this.cdr.markForCheck());    
+    .subscribe(() => {
+      this.clearFilters();
+      this.cdr.markForCheck();
+    });    
   }
 
   public searchTextChange(searchText: string) {
@@ -80,6 +87,10 @@ export class RepositoryListComponent implements OnDestroy {
 
   private navigateToCommits(repoName: string) {
     this.router.navigate(['commits', repoName]);
+  }
+
+  private clearFilters() {
+    this.filter.clearFilters();
   }
 
   private subscriptions = new Subscription();
