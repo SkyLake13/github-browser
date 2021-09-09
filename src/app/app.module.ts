@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GithubClientModule } from './github-client';
+import { ErrorHandlingModule } from './error-handling/error-handling.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { GithubClientModule } from './github-client';
     BrowserModule,
     AppRoutingModule,
     GithubClientModule.forRoot(environment.api_base_url),
+    ErrorHandlingModule.forRoot(),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
