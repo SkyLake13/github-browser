@@ -1,9 +1,9 @@
-<div class="header">
+<div>
     <h1 mat-dialog-title>{{ title }}</h1>
 </div>
 <div mat-dialog-content>
-    <p class="message">{{ message }}</p>
+    <p>{{ message }}</p>
 </div>
 <div mat-dialog-actions>
-    <button class="btn btn-cancel" (click)="close()">CLOSE</button>
+    <button mat-button color="primary" (click)="close()">CLOSE</button>
 </div>

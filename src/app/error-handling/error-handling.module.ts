@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ModuleWithProviders, NgModule } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import {MatDialogModule} from '@angular/material/dialog';
 
 import { DialogComponent } from "./dialog/dialog.component";
@@ -10,7 +11,8 @@ import { DialogService } from "./services/dialog.service";
 @NgModule({
     imports: [
         CommonModule,
-        MatDialogModule
+        MatDialogModule,
+        MatButtonModule
     ],
     declarations: [DialogComponent],
     exports: [DialogComponent],
