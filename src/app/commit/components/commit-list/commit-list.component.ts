@@ -17,7 +17,8 @@ import { CommitService } from '../../services/commit.service';
 })
 export class CommitListComponent implements OnInit, OnDestroy {
   public perPageRecordsCount = 10;
-
+  public repo!: string;
+  
   public commits = new CommitsResult(0, []);
 
   constructor(
@@ -96,7 +97,6 @@ export class CommitListComponent implements OnInit, OnDestroy {
     return tap((commits: CommitsResult) => this.commits = new CommitsResult(commits.count, commits.items));
   }
 
-  private repo!: string;
   private query!: string;
   private subscriptions = new Subscription();
   private isSearch = false;
