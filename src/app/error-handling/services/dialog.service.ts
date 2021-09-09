@@ -14,4 +14,13 @@ export class DialogService {
             }
         });  
     }
+
+    public showRateLimitDialog(message: string) {
+        this.dialog.open(DialogComponent, {    
+            data: {
+                title: 'Rate limit exceeded !',
+                message: message
+            }
+        });  
+    }
 }

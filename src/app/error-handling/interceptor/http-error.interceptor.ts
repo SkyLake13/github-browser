@@ -11,6 +11,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   public intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(httpRequest)
             .pipe(catchError((err: HttpErrorResponse) => {
+                if(err.status === 403) {
+                  this.dialogService.showRateLimitDialog(err.message);
+                }
                 this.dialogService.showHttpErrorDialog(err.status, err.message);
                 return throwError(err);
             }));
