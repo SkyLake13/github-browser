@@ -10,9 +10,9 @@
     border-color: currentColor;
 }
 
-@mixin avatar($cellMinWidth, $imgWidth) {
+@mixin avatar($cellWidth, $imgWidth) {
     .avatar-cell {
-        width: $cellMinWidth * 1px;
+        width: $cellWidth * 1px;
 
         img {
             border-radius: math.div($imgWidth, 2) * 1px;
@@ -21,21 +21,21 @@
     }
 }
 
-@mixin name($cellMinWidth) {
+@mixin name($cellWidth) {
     .name-cell {
-        width: $cellMinWidth * 1px;
+        width: $cellWidth * 1px;
     }
 }
 
-@mixin language($cellMinWidth) {
+@mixin language($cellWidth) {
     .language-cell {
-        width: $cellMinWidth * 1px;
+        width: $cellWidth * 1px;
     }
 }
 
-@mixin stars($cellMinWidth, $hide) {
+@mixin stars($cellWidth, $hide) {
     .stars-cell {
-        width: $cellMinWidth * 1px;
+        width: $cellWidth * 1px;
     }
 
     @if $hide {
@@ -45,11 +45,7 @@
     }
 }
 
-@mixin date($cellMinWidth, $hide) {
-    .date-cell {
-        width: $cellMinWidth * 1px;
-    }
-
+@mixin date($hide) {
     @if $hide {
         .date-cell {
             display: none;
@@ -62,7 +58,7 @@
     @include name(100);
     @include language(70);
     @include stars(70, true);
-    @include date(100, true);  
+    @include date(true);  
 }
 
 @media (min-width: 415px) and (max-width: 600px) {
@@ -70,7 +66,7 @@
     @include name(100);
     @include language(70);
     @include stars(70, false);
-    @include date(140, true);  
+    @include date(true);  
 }
 
 @media (min-width: 601px) and (max-width: 767px) {
@@ -78,15 +74,15 @@
     @include name(120);
     @include language(100);
     @include stars(100, false);
-    @include date(140, false);  
+    @include date(false);  
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-    @include avatar(90, 40);
+    @include avatar(70, 30);
     @include name(120);
     @include language(100);
     @include stars(100, false);
-    @include date(140, false);  
+    @include date(false);  
 }
 
 //
@@ -96,7 +92,7 @@
     @include name(120);
     @include language(100);
     @include stars(100, false);
-    @include date(140, false);  
+    @include date(false);  
 }
 
 // high res tablets & high res laptops
@@ -105,7 +101,7 @@
     @include name(120);
     @include language(100);
     @include stars(100, false);
-    @include date(140, false);  
+    @include date(false);  
 }
 
 

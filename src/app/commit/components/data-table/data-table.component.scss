@@ -1,11 +1,40 @@
-.url-cell {
-    min-width: 70px;
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
 }
 
-.name-cell {
-    min-width: 170px;;
+.mat-row:hover .mat-cell {
+    border-color: currentColor;
 }
 
-.message-cell {
-    min-width: 170px;
+@mixin name($cellMinWidth) {
+    .name-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin url($cellMinWidth) {
+    .url-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin message($hide) {
+    @if $hide {
+        .message-cell {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 414px) {
+    @include url(100);
+    @include name(120);
+    @include message(true);
+}
+
+@media (min-width: 415px) {
+    @include url(70);
+    @include name(120);
+    @include message(false);
 }
