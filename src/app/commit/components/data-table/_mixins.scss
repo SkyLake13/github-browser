@@ -1,0 +1,19 @@
+@mixin name($cellMinWidth) {
+    .name-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin url($cellMinWidth) {
+    .url-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin message($hide) {
+    @if $hide {
+        .message-cell {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+@use "sass:math";
+
+@mixin avatar($cellWidth, $imgWidth) {
+    .avatar-cell {
+        width: $cellWidth * 1px;
+
+        img {
+            border-radius: math.div($imgWidth, 2) * 1px;
+            width: $imgWidth * 1px;
+        }
+    }
+}
+
+@mixin name($cellWidth) {
+    .name-cell {
+        width: $cellWidth * 1px;
+    }
+}
+
+@mixin language($cellWidth) {
+    .language-cell {
+        width: $cellWidth * 1px;
+    }
+}
+
+@mixin stars($cellWidth, $hide) {
+    .stars-cell {
+        width: $cellWidth * 1px;
+    }
+
+    @if $hide {
+        .stars-cell {
+            display: none;
+        }
+    }
+}
+
+@mixin date($hide) {
+    @if $hide {
+        .date-cell {
+            display: none;
+        }
+    }
+}

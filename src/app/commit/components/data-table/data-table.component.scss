@@ -1,31 +1,5 @@
-.mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-}
-
-.mat-row:hover .mat-cell {
-    border-color: currentColor;
-}
-
-@mixin name($cellMinWidth) {
-    .name-cell {
-        width: $cellMinWidth * 1px;
-    }
-}
-
-@mixin url($cellMinWidth) {
-    .url-cell {
-        width: $cellMinWidth * 1px;
-    }
-}
-
-@mixin message($hide) {
-    @if $hide {
-        .message-cell {
-            display: none;
-        }
-    }
-}
+@import "../../../common-mixins";
+@import "./mixins";
 
 @media (max-width: 414px) {
     @include url(100);
@@ -37,4 +11,10 @@
     @include url(70);
     @include name(120);
     @include message(false);
+}
+
+@include mat-table();
+
+.mat-row .mat-cell {
+    cursor: default;
 }

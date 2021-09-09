@@ -1,57 +1,5 @@
-@use "sass:math";
-
-.mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    cursor: pointer;
-}
-
-.mat-row:hover .mat-cell {
-    border-color: currentColor;
-}
-
-@mixin avatar($cellWidth, $imgWidth) {
-    .avatar-cell {
-        width: $cellWidth * 1px;
-
-        img {
-            border-radius: math.div($imgWidth, 2) * 1px;
-            width: $imgWidth * 1px;
-        }
-    }
-}
-
-@mixin name($cellWidth) {
-    .name-cell {
-        width: $cellWidth * 1px;
-    }
-}
-
-@mixin language($cellWidth) {
-    .language-cell {
-        width: $cellWidth * 1px;
-    }
-}
-
-@mixin stars($cellWidth, $hide) {
-    .stars-cell {
-        width: $cellWidth * 1px;
-    }
-
-    @if $hide {
-        .stars-cell {
-            display: none;
-        }
-    }
-}
-
-@mixin date($hide) {
-    @if $hide {
-        .date-cell {
-            display: none;
-        }
-    }
-}
+@import "../../../common-mixins";
+@import "./mixins";
 
 @media (max-width: 414px) {
     @include avatar(50, 20);
@@ -104,5 +52,5 @@
     @include date(false);  
 }
 
-
+@include mat-table();
 

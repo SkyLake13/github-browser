@@ -1,0 +1,13 @@
+@mixin mat-table() {
+    $value: 1px solid transparent;
+
+    .mat-row .mat-cell {
+        border-bottom: $value;
+        border-top: $value;
+        cursor: pointer;
+    }
+    
+    .mat-row:hover .mat-cell {
+        border-color: currentColor;
+    }
+}
