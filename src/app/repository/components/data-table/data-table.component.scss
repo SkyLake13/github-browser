@@ -2,32 +2,32 @@
 @import "./mixins";
 
 @media (max-width: 414px) {
-    @include avatar(50, 20);
-    @include name(100);
+    @include avatar(40, 20);
+    @include name(120);
     @include language(70);
     @include stars(70, true);
     @include date(true);  
 }
 
 @media (min-width: 415px) and (max-width: 600px) {
-    @include avatar(50, 20);
-    @include name(100);
-    @include language(70);
-    @include stars(70, false);
+    @include avatar(40, 20);
+    @include name(120);
+    @include language(80);
+    @include stars(70, true);
     @include date(true);  
 }
 
 @media (min-width: 601px) and (max-width: 767px) {
     @include avatar(70, 30);
-    @include name(120);
+    @include name(160);
     @include language(100);
     @include stars(100, false);
-    @include date(false);  
+    @include date(true);  
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
     @include avatar(70, 30);
-    @include name(120);
+    @include name(200);
     @include language(100);
     @include stars(100, false);
     @include date(false);  
@@ -37,7 +37,7 @@
 // high res tablets & high res laptops
 @media (min-width: 1024px) and (max-width:  1365px) {
     @include avatar(90, 40);
-    @include name(120);
+    @include name(150);
     @include language(100);
     @include stars(100, false);
     @include date(false);  
@@ -46,7 +46,7 @@
 // high res tablets & high res laptops
 @media (min-width: 1366px) {
     @include avatar(90, 40);
-    @include name(120);
+    @include name(150);
     @include language(100);
     @include stars(100, false);
     @include date(false);  
