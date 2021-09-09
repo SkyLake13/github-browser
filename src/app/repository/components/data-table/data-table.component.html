@@ -22,6 +22,14 @@
     <td mat-cell *matCellDef="let element" class="date-cell">{{element.createdAt | date : 'short'}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="noData">
+    <td class="text-align-center" mat-footer-cell *matFooterCellDef [attr.colspan]="columns.length">
+      No records found.
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns;" (click)="click(row)"></tr>
+
+  <tr mat-footer-row *matFooterRowDef="['noData']" [hidden]="dataSource.length !== 0"></tr>
 </table>
