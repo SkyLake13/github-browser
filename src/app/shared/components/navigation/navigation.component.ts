@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-navigation',
@@ -7,5 +8,11 @@ import { Component, Input } from '@angular/core';
 })
 export class NavigationComponent {
   @Input()
-  public header?: string
+  public header?: string;
+
+  constructor(private location: Location) { }
+
+  public goBack() {
+    this.location.back();
+  }
 }
