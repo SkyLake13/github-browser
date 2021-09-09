@@ -1,34 +1,112 @@
-.avatar-cell {
-    min-width: 70px;
-}
-
-.name-cell {
-    min-width: 345px;;
-}
-
-.language-cell {
-    min-width: 170px;
-}
-
-.stars-cell {
-    min-width: 170px;
-}
-
-.date-cell {
-    min-width: 170px;
-}
-
-.avatar {
-    border-radius: 25px;
-    width: 50px;
-}
+@use "sass:math";
 
 .mat-row .mat-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
     cursor: pointer;
-  }
+}
 
-  .mat-row:hover .mat-cell {
+.mat-row:hover .mat-cell {
     border-color: currentColor;
-  }
+}
+
+@mixin avatar($cellMinWidth, $imgWidth) {
+    .avatar-cell {
+        width: $cellMinWidth * 1px;
+
+        img {
+            border-radius: math.div($imgWidth, 2) * 1px;
+            width: $imgWidth * 1px;
+        }
+    }
+}
+
+@mixin name($cellMinWidth) {
+    .name-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin language($cellMinWidth) {
+    .language-cell {
+        width: $cellMinWidth * 1px;
+    }
+}
+
+@mixin stars($cellMinWidth, $hide) {
+    .stars-cell {
+        width: $cellMinWidth * 1px;
+    }
+
+    @if $hide {
+        .stars-cell {
+            display: none;
+        }
+    }
+}
+
+@mixin date($cellMinWidth, $hide) {
+    .date-cell {
+        width: $cellMinWidth * 1px;
+    }
+
+    @if $hide {
+        .date-cell {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 414px) {
+    @include avatar(50, 20);
+    @include name(100);
+    @include language(70);
+    @include stars(70, true);
+    @include date(100, true);  
+}
+
+@media (min-width: 415px) and (max-width: 600px) {
+    @include avatar(50, 20);
+    @include name(100);
+    @include language(70);
+    @include stars(70, false);
+    @include date(140, true);  
+}
+
+@media (min-width: 601px) and (max-width: 767px) {
+    @include avatar(70, 30);
+    @include name(120);
+    @include language(100);
+    @include stars(100, false);
+    @include date(140, false);  
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    @include avatar(90, 40);
+    @include name(120);
+    @include language(100);
+    @include stars(100, false);
+    @include date(140, false);  
+}
+
+//
+// high res tablets & high res laptops
+@media (min-width: 1024px) and (max-width:  1365px) {
+    @include avatar(90, 40);
+    @include name(120);
+    @include language(100);
+    @include stars(100, false);
+    @include date(140, false);  
+}
+
+// high res tablets & high res laptops
+@media (min-width: 1366px) {
+    @include avatar(90, 40);
+    @include name(120);
+    @include language(100);
+    @include stars(100, false);
+    @include date(140, false);  
+}
+
+
+

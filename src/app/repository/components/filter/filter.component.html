@@ -1,5 +1,5 @@
 <div>
-  <div class="inline-block">
+  <div>
     <mat-form-field appearance="outline">
       <mat-label>Language</mat-label>
       <mat-select multiple (selectionChange)="languageSelectionChange($event)">
@@ -9,7 +9,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="inline-block">
+  <div>
     <label class="mat-header-cell block">Stars</label>
     <mat-slider thumbLabel (change)="minStarsValueChange($event)" 
       [displayWith]="formatLabel" 
