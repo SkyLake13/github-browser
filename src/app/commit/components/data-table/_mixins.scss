@@ -11,6 +11,17 @@
 }
 
 @mixin message($hide) {
+    .message-cell {
+        flex: 1;
+        max-width: 42vw;
+    
+        div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     @if $hide {
         .message-cell {
             display: none;
