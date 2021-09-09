@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { REPO_NAME_PARAM } from '../../constants';
-import { CommitsResult, Commit } from '../../interfaces';
+import { CommitsResult } from '../../interfaces';
 import { CommitService } from '../../services/commit.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class CommitListComponent implements OnInit, OnDestroy {
 
   public pageChange(pageEvent: PageEvent) {
     if(this.isSearch) {
-      this.searchCommits(this.repo, this.query, pageEvent.pageIndex + 1)
+      this.searchCommits(this.query, pageEvent.pageIndex + 1)
       .pipe(this.bind())
       .subscribe(() => this.cdr.markForCheck());
     } else {
@@ -65,24 +65,26 @@ export class CommitListComponent implements OnInit, OnDestroy {
   }
 
   private search(searchText: string) {
-    if (searchText) {
+    if (searchText && searchText !== '') {
       const query = this.createQuery(searchText);
-      const subs = this.searchCommits(this.repo, query)
+      const subs = this.searchCommits(query)
         .pipe(this.bind())
         .subscribe(() => this.cdr.markForCheck());
       this.subscriptions.add(subs);
       this.isSearch = true;
-    } else {
+    } else if(this.repo) {
       const subs = this.getCommits(this.repo)
         .pipe(this.bind())
         .subscribe(() => this.cdr.markForCheck());
       this.subscriptions.add(subs);
       this.isSearch = false;
+    } else {
+      this.commits = new CommitsResult(0, []);
     }
   }
 
-  private searchCommits(repo: string, query: string, page = 1) {
-    return this.commitService.searchCommits(repo, query, page)
+  private searchCommits(query: string, page = 1) {
+    return this.commitService.searchCommits(query, page)
   }
 
   private getCommits(repo: string, page = 1) {

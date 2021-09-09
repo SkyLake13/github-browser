@@ -1,6 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
-import { API_SERVICE, CommitItem, GetCommitResponse, ApiService } from "../../github-client";
+
+import { API_SERVICE, CommitItem, 
+    GetCommitResponse, ApiService } from "../../github-client";
 import { Commit } from "../interfaces";
 
 @Injectable()
@@ -15,23 +17,13 @@ export class CommitService {
             })));
     }
 
-    public searchCommits(repoFullName: string, searchText: string, page: number) {
-        const searchString = buildSearchString(repoFullName, searchText);
-
-        return this.apiService.searchCommits(searchString, page)
+    public searchCommits(searchText: string, page: number) {
+        return this.apiService.searchCommits(searchText, page)
                 .pipe(map((res) => ({
                     count: res.total_count,
                     items: res.items.map(mapCommitItem)
                 })));
     }
-}
-
-function buildSearchString(repoFullName: string, searchText: string) {
-    if(repoFullName) {
-        return `repo:${repoFullName}+${searchText}`;
-    }
-    
-    return searchText;
 }
 
 function mapCommitItem(item: CommitItem) {
